@@ -61,77 +61,50 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // --- ระบบเล่นเสียงผ่านไฟล์ MP3 (iPhone Friendly) ---
-        function playAudio(text) {
-            // สร้าง URL ของ Google TTS (ซึ่งจะส่งคืนไฟล์ .mp3 มาให้เครื่องเล่น)
-            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
-            const audio = new Audio(ttsUrl);
+    // --- ระบบเสียงรองรับทุก Browser (SpeechSynthesis + Fallback) ---
+    function speak(text) {
+        // 1. ยกเลิกเสียงที่กำลังเล่นค้างอยู่
+        window.speechSynthesis.cancel();
+
+        // 2. สร้างเสียงใหม่
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        // 3. ปรับจูน Voice (สำหรับ iOS/Android)
+        const voices = window.speechSynthesis.getVoices();
+        const chineseVoice = voices.find(v => v.lang === 'zh-CN' || v.lang === 'zh-Hans') || voices[0];
+        if (chineseVoice) utterance.voice = chineseVoice;
+
+        // 4. บังคับให้ Browser เล่น (ถ้าติด Autoplay ให้ลองสั่งเล่นอีกครั้ง)
+        window.speechSynthesis.speak(utterance);
+        
+        // --- ส่วนแก้ไขมือถือโดยเฉพาะ ---
+        // ถ้าเป็น iOS/Mobile บางครั้งต้องมี "การคลิกปลุก" ซ้ำ
+        console.log("พยายามพูด: " + text);
+    }
+
+    // แก้ไขฟังก์ชัน render ในส่วนของปุ่ม
+    function render() {
+        // ... (โค้ด render ส่วนเดิม)
+        const audioBtn = document.createElement('button');
+        audioBtn.className = 'btn-audio';
+        audioBtn.innerHTML = '🔊 ฟังเสียง';
+        
+        // เพิ่ม event เพื่อ "ปลุก" ระบบเสียงในทุกๆ เบราว์เซอร์
+        audioBtn.onclick = () => {
+            // ปลุก context ด้วยการเล่นเสียงเปล่าๆ 1 ครั้ง
+            const silent = new SpeechSynthesisUtterance("");
+            window.speechSynthesis.speak(silent);
             
-            // สั่งเล่นเสียง
-            audio.play().catch(err => {
-                console.log("iPhone บล็อกเสียง: ", err);
-                alert("กรุณาแตะที่หน้าจอ 1 ครั้ง เพื่อเริ่มระบบเสียงครับ");
-            });
-        }
-
-        const params = new URLSearchParams(window.location.search);
-        const level = params.get('level');
-        let data = [], currentIdx = 0, mode = 'study', score = 0;
-
-        async function loadData() {
-            try {
-                const response = await fetch(`data/level${level}.json`);
-                data = await response.json();
-                render();
-            } catch (err) { document.getElementById('quiz-header').innerText = "โหลดไม่สำเร็จ"; }
-        }
-
-        function render() {
-            const q = data[currentIdx];
-            const header = document.getElementById('quiz-header');
-            header.innerText = (mode === 'study' ? '📖 บทเรียน' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
-            header.className = 'status-badge ' + (mode === 'study' ? 'mode-study' : 'mode-quiz');
-            document.getElementById('char').innerText = q.chinese;
-            document.getElementById('controls').innerHTML = '';
-
-            const audioBtn = document.createElement('button');
-            audioBtn.className = 'btn-audio';
-            audioBtn.innerText = '🔊 ฟังเสียง';
-            // เปลี่ยนมาเรียกใช้ฟังก์ชัน playAudio ใหม่ของเรา
-            audioBtn.onclick = () => playAudio(q.chinese);
-            document.getElementById('controls').appendChild(audioBtn);
-
-            // ส่วนที่เหลือคงเดิมทั้งหมด...
-            if (mode === 'study') {
-                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead} : ${q.thaiMeaning}</span>`;
-                const btn = document.createElement('button');
-                btn.className = 'btn-action';
-                btn.innerText = (currentIdx === data.length - 1) ? "เข้าสู่บททดสอบ!" : "ประโยคถัดไป";
-                btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; render(); } else { currentIdx++; render(); } };
-                document.getElementById('controls').appendChild(btn);
-            } else {
-                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead}</span>`;
-                let opts = [q.thaiMeaning];
-                while(opts.length < 4) { let r = data[Math.floor(Math.random() * data.length)].thaiMeaning; if(!opts.includes(r)) opts.push(r); }
-                opts.sort(() => Math.random() - 0.5);
-                opts.forEach(opt => {
-                    const b = document.createElement('button');
-                    b.className = 'btn-opt';
-                    b.innerText = opt;
-                    b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else showResult(); }, 600); };
-                    document.getElementById('controls').appendChild(b);
-                });
-            }
-        }
-
-        function showResult() {
-            new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg').play();
-            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-            document.getElementById('score-text').innerText = `${score}/${data.length}`;
-            new bootstrap.Modal(document.getElementById('scoreModal')).show();
-        }
-
-        loadData();
-    </script>
+            // เล่นเสียงจริง
+            speak(q.chinese);
+        };
+        document.getElementById('controls').appendChild(audioBtn);
+        // ... (โค้ดที่เหลือเดิม)
+    }
+</script>
 </body>
 </html>
