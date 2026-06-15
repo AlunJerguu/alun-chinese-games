@@ -64,35 +64,39 @@
         const level = params.get('level');
         let data = [], currentIdx = 0, mode = 'study', score = 0;
 
-        async function loadData() {
-            try {
-                const response = await fetch(`data/level${level}.json`);
-                data = await response.json();
-                render();
-            } catch (err) { document.getElementById('quiz-header').innerText = "โหลดไม่สำเร็จ"; }
-        }
-
+        // ระบบเสียง MP3 ที่เสถียรที่สุด
         function playAudio(text) {
+            if (!text) return;
             const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
             const audio = new Audio(ttsUrl);
-            audio.play().catch(e => {
-                console.log("ต้องการการโต้ตอบจากผู้ใช้");
-            });
+            audio.play().catch(e => alert("กรุณาแตะที่ปุ่มฟังเสียงอีกครั้ง"));
+        }
+
+        async function loadData() {
+            try {
+                const response = await fetch(`data/level${level}.json?t=${Date.now()}`);
+                data = await response.json();
+                render();
+            } catch (err) { document.getElementById('quiz-header').innerText = "โหลดด่านไม่สำเร็จ"; }
         }
 
         function render() {
             const q = data[currentIdx];
+            if (!q) return;
+
             const header = document.getElementById('quiz-header');
             header.innerText = (mode === 'study' ? '📖 บทเรียน' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
             header.className = 'status-badge ' + (mode === 'study' ? 'mode-study' : 'mode-quiz');
             document.getElementById('char').innerText = q.chinese;
-            document.getElementById('controls').innerHTML = '';
-
+            
+            // ปุ่มฟังเสียงจะถูกสร้างใหม่ทุกครั้งตามค่า q ปัจจุบัน
+            const controls = document.getElementById('controls');
+            controls.innerHTML = '';
             const audioBtn = document.createElement('button');
             audioBtn.className = 'btn-audio';
             audioBtn.innerText = '🔊 ฟังเสียง';
             audioBtn.onclick = () => playAudio(q.chinese);
-            document.getElementById('controls').appendChild(audioBtn);
+            controls.appendChild(audioBtn);
 
             if (mode === 'study') {
                 document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead} : ${q.thaiMeaning}</span>`;
@@ -100,7 +104,7 @@
                 btn.className = 'btn-action';
                 btn.innerText = (currentIdx === data.length - 1) ? "เข้าสู่บททดสอบ!" : "ประโยคถัดไป";
                 btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; render(); } else { currentIdx++; render(); } };
-                document.getElementById('controls').appendChild(btn);
+                controls.appendChild(btn);
             } else {
                 document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead}</span>`;
                 let opts = [q.thaiMeaning];
@@ -111,7 +115,7 @@
                     b.className = 'btn-opt';
                     b.innerText = opt;
                     b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else showResult(); }, 600); };
-                    document.getElementById('controls').appendChild(b);
+                    controls.appendChild(b);
                 });
             }
         }
