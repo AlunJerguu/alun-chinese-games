@@ -18,16 +18,14 @@
         .mode-quiz { background: var(--quiz-color); }
         .char-display { font-size: 5rem; font-weight: 900; color: #2f3542; margin: 10px 0; }
         .meta-info { font-size: 1.3rem; color: #57606f; min-height: 4em; }
-        /* ปรับปุ่มให้ห่างและสวยงาม */
-        #controls { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-        .btn-audio { background: #ffeaa7; border: 3px solid #2f3542; width: 100%; padding: 15px; border-radius: 15px; font-weight: 800; cursor: pointer; }
+        .btn-audio { background: #eee; border: 3px solid #2f3542; width: 100%; padding: 12px; border-radius: 15px; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
         .btn-action { width: 100%; padding: 15px; border-radius: 15px; border: 3px solid #2f3542; background: var(--study-color); color: #2f3542; font-weight: 800; cursor: pointer; }
-        .btn-opt { width: 100%; padding: 15px; margin: 5px 0; border-radius: 15px; border: 3px solid #2f3542; background: #fff; font-weight: 600; cursor: pointer; }
+        .btn-opt { width: 100%; padding: 15px; margin: 8px 0; border-radius: 15px; border: 3px solid #2f3542; background: #fff; font-weight: 600; cursor: pointer; }
         .correct { background: #7bed9f !important; }
         .wrong { background: #ff6b81 !important; }
     </style>
 </head>
-<body onclick="initAudio()">
+<body>
 
     <nav class="navbar navbar-expand-lg px-4">
         <div class="container">
@@ -51,19 +49,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ปลดล็อกเสียงอัตโนมัติเมื่อคลิก
-        let audioUnlocked = false;
-        function initAudio() {
-            if (audioUnlocked) return;
-            const audio = new Audio();
-            audio.play().catch(() => {});
-            audioUnlocked = true;
-        }
-
+        // ระบบเสียง: พยายามเล่น หากติดบล็อกให้ขึ้น Alert
         function playAudio(text) {
-            initAudio();
             const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
-            new Audio(url).play().catch(() => {});
+            const audio = new Audio(url);
+            audio.play().catch(() => {
+                alert("แตะหน้าจอ 1 ครั้งก่อนกดฟังครับ");
+            });
         }
 
         const params = new URLSearchParams(window.location.search);
@@ -71,9 +63,11 @@
         let data = [], currentIdx = 0, mode = 'study', score = 0;
 
         async function loadData() {
-            const res = await fetch(`data/level${level}.json?t=${Date.now()}`);
-            data = await res.json();
-            render();
+            try {
+                const response = await fetch(`data/level${level}.json?t=${Date.now()}`);
+                data = await response.json();
+                render();
+            } catch (err) { document.getElementById('quiz-header').innerText = "โหลดด่านไม่สำเร็จ"; }
         }
 
         function render() {
@@ -87,14 +81,14 @@
             ctrl.innerHTML = `<button class="btn-audio" onclick="playAudio('${q.chinese}')">🔊 ฟังเสียง</button>`;
 
             if (mode === 'study') {
-                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold">${q.thaiRead} : ${q.thaiMeaning}</span>`;
+                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead} : ${q.thaiMeaning}</span>`;
                 const btn = document.createElement('button');
                 btn.className = 'btn-action';
                 btn.innerText = (currentIdx === data.length - 1) ? "เข้าสู่บททดสอบ!" : "ประโยคถัดไป";
                 btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; } else { currentIdx++; } render(); };
                 ctrl.appendChild(btn);
             } else {
-                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold">${q.thaiRead}</span>`;
+                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead}</span>`;
                 let opts = [q.thaiMeaning];
                 while(opts.length < 4) { let r = data[Math.floor(Math.random() * data.length)].thaiMeaning; if(!opts.includes(r)) opts.push(r); }
                 opts.sort(() => Math.random() - 0.5);
@@ -102,10 +96,7 @@
                     const b = document.createElement('button');
                     b.className = 'btn-opt';
                     b.innerText = opt;
-                    b.onclick = () => { 
-                        if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } 
-                        setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else alert('จบแล้ว! ได้คะแนน ' + score); }, 600); 
-                    };
+                    b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else alert('จบแล้ว! คะแนน: ' + score); }, 600); };
                     ctrl.appendChild(b);
                 });
             }
