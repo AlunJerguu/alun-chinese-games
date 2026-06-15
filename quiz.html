@@ -64,6 +64,18 @@
         const level = params.get('level');
         let data = [], currentIdx = 0, mode = 'study', score = 0;
 
+        // ฟังก์ชันสั่งเสียงแบบบังคับ
+        function forceSpeak(text) {
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'zh-CN';
+            msg.volume = 1;
+            msg.rate = 0.8;
+            msg.pitch = 1;
+            window.speechSynthesis.speak(msg);
+            console.log("กำลังสั่งให้พูด: " + text);
+        }
+
         async function loadData() {
             try {
                 const response = await fetch(`data/level${level}.json`);
@@ -80,11 +92,9 @@
 
             const audioBtn = document.createElement('button');
             audioBtn.className = 'btn-audio';
-            audioBtn.innerHTML = '🔊 ฟังเสียง';
-            audioBtn.onclick = () => { 
-                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(q.chinese)}`;
-                const audio = new Audio(url);
-                audio.play().catch(e => alert("ลองแตะหน้าจอหนึ่งครั้ง แล้วกดปุ่มนี้อีกทีนะครับ"));
+            audioBtn.innerHTML = '🔊 ฟังเสียง (ทดสอบ)';
+            audioBtn.onclick = () => {
+                forceSpeak(q.chinese);
             };
             document.getElementById('controls').appendChild(audioBtn);
 
@@ -119,6 +129,7 @@
             document.getElementById('score-text').innerText = `${score}/${data.length}`;
             new bootstrap.Modal(document.getElementById('scoreModal')).show();
         }
+
         loadData();
     </script>
 </body>
