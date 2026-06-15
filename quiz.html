@@ -19,7 +19,7 @@
         .mode-quiz { background: var(--quiz-color); }
         .char-display { font-size: 5rem; font-weight: 900; color: #2f3542; margin: 10px 0; }
         .meta-info { font-size: 1.3rem; color: #57606f; min-height: 4em; }
-        .btn-audio { background: #ffeaa7; border: 3px solid #2f3542; width: 100%; padding: 15px; border-radius: 15px; font-weight: 800; cursor: pointer; }
+        .btn-audio { background: #eee; border: 3px solid #2f3542; width: 100%; padding: 12px; border-radius: 15px; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
         .btn-action { width: 100%; padding: 15px; border-radius: 15px; border: 3px solid #2f3542; background: var(--study-color); color: #2f3542; font-weight: 800; cursor: pointer; }
         .btn-opt { width: 100%; padding: 15px; margin: 8px 0; border-radius: 15px; border: 3px solid #2f3542; background: #fff; font-weight: 600; cursor: pointer; }
         .correct { background: #7bed9f !important; }
@@ -39,12 +39,22 @@
 
     <div class="quiz-container">
         <div class="quiz-card">
-            <div id="quiz-header" class="status-badge mode-study">กำลังโหลดด่าน...</div>
+            <div id="quiz-header" class="status-badge mode-study">กำลังโหลด...</div>
             <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
                 <h1 class="char-display" id="char">-</h1>
                 <div id="meta" class="meta-info">-</div>
             </div>
             <div id="controls"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="scoreModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-5 p-4 text-center border-4 border-dark">
+                <h2>เรียนเก่งมาก! 🌟</h2>
+                <h1 id="score-text" class="display-1 fw-bold my-4">0/10</h1>
+                <button class="btn btn-warning btn-lg w-100 rounded-pill border-dark border-3" onclick="window.location.href='game.html'">กลับห้องเรียน</button>
+            </div>
         </div>
     </div>
 
@@ -54,61 +64,36 @@
         const level = params.get('level') || '1';
         let data = [], currentIdx = 0, mode = 'study', score = 0;
 
-        // ระบบเสียง Hybrid: SpeechSynthesis + Fallback MP3
         function playAudio(text) {
-            window.speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(text);
-            msg.lang = 'zh-CN';
-            msg.rate = 0.8;
-            
-            // ปลุกระบบเสียง iOS โดยตรง
-            window.speechSynthesis.speak(msg);
-            
-            // ตรวจสอบถ้าไม่ดังใน 1 วิ ให้ใช้ Google MP3 Fallback
-            setTimeout(() => {
-                if(window.speechSynthesis.speaking === false) {
-                    const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
-                    new Audio(url).play();
-                }
-            }, 1000);
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
+            new Audio(url).play().catch(() => alert("กรุณาแตะหน้าจอ 1 ครั้งก่อนกดฟังครับ"));
         }
 
         async function loadData() {
             try {
                 const response = await fetch(`data/level${level}.json?t=${Date.now()}`);
-                if (!response.ok) throw new Error("ไม่พบไฟล์ด่านที่ " + level);
                 data = await response.json();
                 render();
-            } catch (err) { 
-                document.getElementById('quiz-header').innerText = "โหลดด่านไม่สำเร็จ";
-            }
+            } catch (err) { document.getElementById('quiz-header').innerText = "โหลดด่านไม่สำเร็จ"; }
         }
 
         function render() {
             const q = data[currentIdx];
-            if (!q) return;
-
             const header = document.getElementById('quiz-header');
             header.innerText = (mode === 'study' ? '📖 บทเรียน' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
             header.className = 'status-badge ' + (mode === 'study' ? 'mode-study' : 'mode-quiz');
             document.getElementById('char').innerText = q.chinese;
             
-            const controls = document.getElementById('controls');
-            controls.innerHTML = '';
-            
-            const audioBtn = document.createElement('button');
-            audioBtn.className = 'btn-audio';
-            audioBtn.innerHTML = '🔊 ฟังเสียง';
-            audioBtn.onclick = () => playAudio(q.chinese);
-            controls.appendChild(audioBtn);
+            const ctrl = document.getElementById('controls');
+            ctrl.innerHTML = `<button class="btn-audio" onclick="playAudio('${q.chinese}')">🔊 ฟังเสียง</button>`;
 
             if (mode === 'study') {
                 document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead} : ${q.thaiMeaning}</span>`;
                 const btn = document.createElement('button');
                 btn.className = 'btn-action';
                 btn.innerText = (currentIdx === data.length - 1) ? "เข้าสู่บททดสอบ!" : "ประโยคถัดไป";
-                btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; render(); } else { currentIdx++; render(); } };
-                controls.appendChild(btn);
+                btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; } else { currentIdx++; } render(); };
+                ctrl.appendChild(btn);
             } else {
                 document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead}</span>`;
                 let opts = [q.thaiMeaning];
@@ -119,7 +104,7 @@
                     b.className = 'btn-opt';
                     b.innerText = opt;
                     b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else showResult(); }, 600); };
-                    controls.appendChild(b);
+                    ctrl.appendChild(b);
                 });
             }
         }
@@ -127,10 +112,8 @@
         function showResult() {
             new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg').play();
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-            document.getElementById('quiz-header').innerText = "จบการทดสอบ";
-            document.getElementById('char').innerText = "🎉";
-            document.getElementById('meta').innerText = `คะแนนของคุณ: ${score}/${data.length}`;
-            document.getElementById('controls').innerHTML = `<button class="btn-action" onclick="window.location.href='game.html'">กลับเมนูหลัก</button>`;
+            document.getElementById('score-text').innerText = `${score}/${data.length}`;
+            new bootstrap.Modal(document.getElementById('scoreModal')).show();
         }
 
         loadData();
