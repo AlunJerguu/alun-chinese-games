@@ -11,6 +11,7 @@
         :root { --bg-color: #f7f1e3; --border-color: #2f3542; --study-color: #00d2d3; --quiz-color: #feca57; }
         body { background: var(--bg-color); font-family: 'Kanit', sans-serif; }
         .navbar { border-bottom: 4px solid var(--border-color); background: #fdfaf0 !important; padding: 15px 0; }
+        .brand-text { font-weight: 900; color: var(--border-color); }
         .quiz-container { margin: 30px 0; display: flex; justify-content: center; }
         .quiz-card { width: 95%; max-width: 450px; background: #fff; border-radius: 40px; padding: 30px; border: 4px solid #2f3542; box-shadow: 8px 8px 0px #2f3542; text-align: center; display: flex; flex-direction: column; min-height: 550px; }
         .status-badge { display: inline-block; padding: 8px 25px; border-radius: 20px; font-weight: 700; color: #2f3542; margin-bottom: 20px; border: 3px solid #2f3542; }
@@ -31,7 +32,7 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <i class="bi bi-translate fs-2 me-2 text-primary"></i>
-                <span style="font-weight: 900; color: #2f3542;">AlunchineseGames</span>
+                <span class="brand-text">AlunchineseGames</span>
             </a>
         </div>
     </nav>
@@ -47,9 +48,19 @@
         </div>
     </div>
 
+    <div class="modal fade" id="scoreModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-5 p-4 text-center border-4 border-dark">
+                <h2>เรียนเก่งมาก! 🌟</h2>
+                <h1 id="score-text" class="display-1 fw-bold my-4">0/10</h1>
+                <button class="btn btn-warning btn-lg w-100 rounded-pill border-dark border-3" onclick="window.location.href='game.html'">กลับห้องเรียน</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ระบบเสียง: พยายามเล่น หากติดบล็อกให้ขึ้น Alert
+        // ระบบเสียง: ใช้ Audio Object ผูกกับ event เพื่อลดปัญหาเสียงโดนบล็อก
         function playAudio(text) {
             const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
             const audio = new Audio(url);
@@ -78,7 +89,13 @@
             document.getElementById('char').innerText = q.chinese;
             
             const ctrl = document.getElementById('controls');
-            ctrl.innerHTML = `<button class="btn-audio" onclick="playAudio('${q.chinese}')">🔊 ฟังเสียง</button>`;
+            ctrl.innerHTML = '';
+
+            const audioBtn = document.createElement('button');
+            audioBtn.className = 'btn-audio';
+            audioBtn.innerText = '🔊 ฟังเสียง';
+            audioBtn.onclick = () => playAudio(q.chinese);
+            ctrl.appendChild(audioBtn);
 
             if (mode === 'study') {
                 document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead} : ${q.thaiMeaning}</span>`;
@@ -96,11 +113,19 @@
                     const b = document.createElement('button');
                     b.className = 'btn-opt';
                     b.innerText = opt;
-                    b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else alert('จบแล้ว! คะแนน: ' + score); }, 600); };
+                    b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else showResult(); }, 600); };
                     ctrl.appendChild(b);
                 });
             }
         }
+
+        function showResult() {
+            new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg').play();
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+            document.getElementById('score-text').innerText = `${score}/${data.length}`;
+            new bootstrap.Modal(document.getElementById('scoreModal')).show();
+        }
+
         loadData();
     </script>
 </body>
