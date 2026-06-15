@@ -74,9 +74,7 @@
 
         function render() {
             const q = data[currentIdx];
-            const header = document.getElementById('quiz-header');
-            header.innerText = (mode === 'study' ? '📖 บทเรียน' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
-            header.className = 'status-badge ' + (mode === 'study' ? 'mode-study' : 'mode-quiz');
+            document.getElementById('quiz-header').innerText = (mode === 'study' ? '📖 บทเรียน' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
             document.getElementById('char').innerText = q.chinese;
             document.getElementById('controls').innerHTML = '';
 
@@ -84,12 +82,9 @@
             audioBtn.className = 'btn-audio';
             audioBtn.innerHTML = '🔊 ฟังเสียง';
             audioBtn.onclick = () => { 
-                // ใช้ Google TTS API ซึ่งเป็น .mp3 ที่ iPhone ยอมรับ
-                const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(q.chinese)}`;
-                const audio = new Audio(ttsUrl);
-                audio.play().catch(err => {
-                    console.log("iPhone บล็อกเสียง, ลองกดปุ่มเดิมอีกครั้ง");
-                });
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(q.chinese)}`;
+                const audio = new Audio(url);
+                audio.play().catch(e => alert("ลองแตะหน้าจอหนึ่งครั้ง แล้วกดปุ่มนี้อีกทีนะครับ"));
             };
             document.getElementById('controls').appendChild(audioBtn);
 
@@ -122,10 +117,8 @@
             new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg').play();
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
             document.getElementById('score-text').innerText = `${score}/${data.length}`;
-            var myModal = new bootstrap.Modal(document.getElementById('scoreModal'));
-            myModal.show();
+            new bootstrap.Modal(document.getElementById('scoreModal')).show();
         }
-
         loadData();
     </script>
 </body>
