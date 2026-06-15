@@ -63,19 +63,6 @@
         const params = new URLSearchParams(window.location.search);
         const level = params.get('level');
         let data = [], currentIdx = 0, mode = 'study', score = 0;
-        let isAudioUnlocked = false;
-
-        // ฟังก์ชันปลุกเสียง (มือถือบังคับให้ต้องเกิดจาก Interaction)
-        function unlockAudio() {
-            if (isAudioUnlocked) return;
-            const msg = new SpeechSynthesisUtterance("");
-            window.speechSynthesis.speak(msg);
-            isAudioUnlocked = true;
-        }
-
-        // ฟังการแตะหน้าจอครั้งแรก
-        document.addEventListener('touchstart', unlockAudio, { once: true });
-        document.addEventListener('click', unlockAudio, { once: true });
 
         async function loadData() {
             try {
@@ -95,14 +82,14 @@
 
             const audioBtn = document.createElement('button');
             audioBtn.className = 'btn-audio';
-            audioBtn.innerHTML = '<i class="bi bi-volume-up-fill"></i> 🔊 ฟังเสียง';
+            audioBtn.innerHTML = '🔊 ฟังเสียง';
             audioBtn.onclick = () => { 
-                unlockAudio(); // พยายามปลุกเสียงอีกรอบ
-                window.speechSynthesis.cancel();
-                const msg = new SpeechSynthesisUtterance(q.chinese); 
-                msg.lang = 'zh-CN'; 
-                msg.rate = 0.8;
-                window.speechSynthesis.speak(msg); 
+                // ใช้ Google TTS API ซึ่งเป็น .mp3 ที่ iPhone ยอมรับ
+                const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(q.chinese)}`;
+                const audio = new Audio(ttsUrl);
+                audio.play().catch(err => {
+                    console.log("iPhone บล็อกเสียง, ลองกดปุ่มเดิมอีกครั้ง");
+                });
             };
             document.getElementById('controls').appendChild(audioBtn);
 
@@ -132,7 +119,6 @@
         }
 
         function showResult() {
-            // เล่นเสียงแจ้งเตือนและโชว์ป๊อปอัปแบบเดิม
             new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg').play();
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
             document.getElementById('score-text').innerText = `${score}/${data.length}`;
