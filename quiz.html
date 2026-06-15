@@ -4,32 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlunchineseGames - Quiz</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --bg-color: #f7f1e3; --border-color: #2f3542; }
+        :root { --bg-color: #f7f1e3; --border-color: #2f3542; --study-color: #00d2d3; --quiz-color: #feca57; }
         body { background: var(--bg-color); font-family: 'Kanit', sans-serif; }
-        .quiz-card { background: #fff; border: 4px solid var(--border-color); border-radius: 30px; padding: 30px; margin: 20px auto; max-width: 450px; box-shadow: 8px 8px 0px var(--border-color); }
-        .btn-audio { background: #ffeaa7; border: 3px solid var(--border-color); width: 100%; padding: 15px; border-radius: 15px; font-weight: 800; margin-bottom: 20px; }
-        .btn-opt { width: 100%; padding: 15px; margin: 8px 0; border-radius: 15px; border: 3px solid var(--border-color); background: #fff; font-weight: 600; }
+        
+        /* Navbar */
+        .navbar { border-bottom: 4px solid var(--border-color); background: #fdfaf0 !important; padding: 15px 0; }
+        .nav-link { font-weight: 700; color: #4b5563 !important; margin: 0 15px; }
+        .nav-link:hover { color: #6c5ce7 !important; }
+        .brand-text { font-weight: 900; color: var(--border-color); }
+        .offcanvas { border-right: 4px solid var(--border-color); background: #fdfaf0; }
+
+        /* Quiz Card */
+        .quiz-container { margin: 30px 0; display: flex; justify-content: center; }
+        .quiz-card { width: 95%; max-width: 450px; background: #fff; border-radius: 40px; padding: 30px; border: 4px solid #2f3542; box-shadow: 8px 8px 0px #2f3542; text-align: center; display: flex; flex-direction: column; min-height: 550px; }
+        
+        .status-badge { display: inline-block; padding: 8px 25px; border-radius: 20px; font-weight: 700; color: #2f3542; margin-bottom: 20px; border: 3px solid #2f3542; transition: 0.3s; }
+        .mode-study { background: var(--study-color); }
+        .mode-quiz { background: var(--quiz-color); }
+
+        .char-display { font-size: 5rem; font-weight: 900; color: #2f3542; margin: 10px 0; }
+        .meta-info { font-size: 1.3rem; color: #57606f; min-height: 4em; }
+        
+        .btn-audio { background: #eee; border: 3px solid #2f3542; width: 100%; padding: 12px; border-radius: 15px; font-weight: 600; margin-bottom: 15px; }
+        .btn-action { width: 100%; padding: 15px; border-radius: 15px; border: 3px solid #2f3542; background: var(--study-color); color: #2f3542; font-weight: 800; }
+        .btn-opt { width: 100%; padding: 15px; margin: 8px 0; border-radius: 15px; border: 3px solid #2f3542; background: #fff; font-weight: 600; }
         .correct { background: #7bed9f !important; }
         .wrong { background: #ff6b81 !important; }
     </style>
 </head>
 <body>
 
-    <div class="container mt-5">
-        <div class="quiz-card text-center">
-            <div id="quiz-header" class="fw-bold mb-3">กำลังโหลด...</div>
-            <h1 id="char" class="display-1 fw-bold my-4">-</h1>
-            <div id="meta" class="mb-4 text-muted">-</div>
-            <button id="btn-sound" class="btn-audio"><i class="bi bi-volume-up-fill"></i> ฟังเสียง</button>
+    <nav class="navbar navbar-expand-lg px-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-translate fs-2 me-2 text-primary"></i>
+                <span class="brand-text">AlunchineseGames</span>
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="d-none d-lg-block">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="game.html">เริ่มเล่นเกม</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <div class="quiz-card">
+            <div id="quiz-header" class="status-badge mode-study">กำลังโหลด...</div>
+            <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+                <h1 class="char-display" id="char">-</h1>
+                <div id="meta" class="meta-info">-</div>
+            </div>
             <div id="controls"></div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // --- ฟังก์ชันแก้ปัญหาเสียงบนมือถือ ---
+        document.addEventListener('touchstart', () => {
+            const silent = new SpeechSynthesisUtterance("");
+            window.speechSynthesis.speak(silent);
+        }, { once: true });
+
         const params = new URLSearchParams(window.location.search);
         const level = params.get('level');
         let data = [], currentIdx = 0, mode = 'study', score = 0;
@@ -37,65 +82,63 @@
         async function loadData() {
             try {
                 const response = await fetch(`data/level${level}.json`);
+                if (!response.ok) throw new Error('ไม่พบข้อมูลด่าน');
                 data = await response.json();
                 render();
-            } catch (e) { document.getElementById('quiz-header').innerText = "โหลดข้อมูลไม่สำเร็จ"; }
+            } catch (err) {
+                document.getElementById('quiz-header').innerText = "เกิดข้อผิดพลาด";
+                document.getElementById('char').innerText = "!";
+                document.getElementById('meta').innerText = "ไม่พบไฟล์ข้อมูลด่านนี้";
+            }
         }
-
-        // ระบบเสียง: ป้องกันการถูกบล็อกบนมือถือ
-        function playSound(text) {
-            window.speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(text);
-            msg.lang = 'zh-CN';
-            msg.rate = 0.8;
-            window.speechSynthesis.speak(msg);
-        }
-
-        // กระตุ้นระบบเสียงเมื่อผู้ใช้แตะหน้าจอครั้งแรก
-        document.addEventListener('touchstart', () => {
-            const silent = new SpeechSynthesisUtterance("");
-            window.speechSynthesis.speak(silent);
-        }, { once: true });
-
-        document.getElementById('btn-sound').onclick = () => playSound(data[currentIdx].chinese);
 
         function render() {
             const q = data[currentIdx];
-            document.getElementById('quiz-header').innerText = (mode === 'study' ? '📖 เรียนรู้' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
+            const header = document.getElementById('quiz-header');
+            header.innerText = (mode === 'study' ? '📖 บทเรียน' : '✏️ ทดสอบ') + ` (${currentIdx + 1}/${data.length})`;
+            header.className = 'status-badge ' + (mode === 'study' ? 'mode-study' : 'mode-quiz');
             document.getElementById('char').innerText = q.chinese;
             document.getElementById('controls').innerHTML = '';
 
+            const audioBtn = document.createElement('button');
+            audioBtn.className = 'btn-audio';
+            audioBtn.innerText = '🔊 ฟังเสียง';
+            audioBtn.onclick = () => { 
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance(q.chinese); 
+                msg.lang = 'zh-CN'; 
+                window.speechSynthesis.speak(msg); 
+            };
+            document.getElementById('controls').appendChild(audioBtn);
+
             if (mode === 'study') {
-                document.getElementById('meta').innerHTML = `${q.pinyin}<br><b>${q.thaiRead} : ${q.thaiMeaning}</b>`;
+                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead} : ${q.thaiMeaning}</span>`;
                 const btn = document.createElement('button');
-                btn.className = 'btn btn-primary w-100 p-3 fw-bold';
-                btn.innerText = (currentIdx === data.length - 1) ? "เริ่มทดสอบ!" : "ประโยคถัดไป";
-                btn.onclick = () => { 
-                    if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; render(); } 
-                    else { currentIdx++; render(); } 
-                };
+                btn.className = 'btn-action';
+                btn.innerText = (currentIdx === data.length - 1) ? "เข้าสู่บททดสอบ!" : "ประโยคถัดไป";
+                btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; render(); } else { currentIdx++; render(); } };
                 document.getElementById('controls').appendChild(btn);
             } else {
-                document.getElementById('meta').innerText = q.pinyin;
+                document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold text-dark">${q.thaiRead}</span>`;
                 let opts = [q.thaiMeaning];
-                while(opts.length < 4) { 
-                    let r = data[Math.floor(Math.random() * data.length)].thaiMeaning; 
-                    if(!opts.includes(r)) opts.push(r); 
-                }
+                while(opts.length < 4) { let r = data[Math.floor(Math.random() * data.length)].thaiMeaning; if(!opts.includes(r)) opts.push(r); }
                 opts.sort(() => Math.random() - 0.5);
                 opts.forEach(opt => {
                     const b = document.createElement('button');
                     b.className = 'btn-opt';
                     b.innerText = opt;
-                    b.onclick = () => {
-                        if(opt === q.thaiMeaning) { b.classList.add('correct'); score++; }
-                        else b.classList.add('wrong');
-                        setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else alert("คะแนน: " + score); }, 600);
-                    };
+                    b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else showResult(); }, 600); };
                     document.getElementById('controls').appendChild(b);
                 });
             }
         }
+
+        function showResult() {
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+            alert("จบด่านแล้ว! คะแนนของคุณ: " + score + "/" + data.length);
+            window.location.href='game.html';
+        }
+
         loadData();
     </script>
 </body>
