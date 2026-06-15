@@ -16,58 +16,58 @@
             width: 95%; max-width: 450px; background: #fff; border-radius: 40px; 
             padding: 40px; border: 4px solid var(--border-color); 
             box-shadow: 8px 8px 0px var(--border-color); text-align: center;
-            display: flex; flex-direction: column; min-height: 550px;
+            display: flex; flex-direction: column; min-height: 500px;
         }
-        #controls { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-        .btn-audio, .btn-action, .btn-opt { 
+        
+        #quiz-header { display: inline-block; padding: 8px 25px; border-radius: 20px; font-weight: 700; border: 3px solid var(--border-color); margin-bottom: 25px; }
+        .char-display { font-size: 5rem; font-weight: 900; color: var(--border-color); margin: 10px 0; }
+        .meta-info { font-size: 1.3rem; color: #57606f; margin-bottom: 30px; min-height: 3em; }
+        
+        /* การจัดระยะปุ่มให้สวยงาม */
+        #controls { display: flex; flex-direction: column; gap: 20px; margin-top: auto; }
+        .btn-custom { 
             width: 100%; padding: 18px; border-radius: 20px; 
-            border: 3px solid var(--border-color); font-weight: 800; cursor: pointer;
+            border: 3px solid var(--border-color); font-weight: 800; cursor: pointer; transition: 0.2s;
         }
         .btn-audio { background: #ffeaa7; }
-        .btn-action { background: var(--study-color); }
+        .btn-next { background: var(--study-color); }
         .btn-opt { background: #fff; }
+        .btn-opt:hover { background: #f1f2f6; }
         .correct { background: #7bed9f !important; }
         .wrong { background: #ff6b81 !important; }
     </style>
 </head>
-<body>
-
-    <nav class="navbar navbar-expand-lg px-4">
+<body onclick="initAudio()"> <nav class="navbar navbar-expand-lg px-4">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <i class="bi bi-translate fs-2 me-2 text-primary"></i>
-                <span style="font-weight: 900; color: #2f3542;">AlunchineseGames</span>
+                <span style="font-weight: 900; color: var(--border-color);">AlunchineseGames</span>
             </a>
         </div>
     </nav>
 
     <div class="quiz-container">
-        <div class="quiz-card" id="quiz-card">
-            <div id="quiz-header" class="badge bg-dark mb-3">กำลังโหลด...</div>
-            <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
-                <h1 id="char" style="font-size: 5rem; font-weight: 900;">-</h1>
-                <div id="meta" style="font-size: 1.3rem; margin-top: 15px;">-</div>
-            </div>
+        <div class="quiz-card">
+            <div id="quiz-header" class="mode-study">กำลังโหลด...</div>
+            <h1 class="char-display" id="char">-</h1>
+            <div id="meta" class="meta-info">-</div>
             <div id="controls"></div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ระบบปลดล็อกเสียง (สำคัญสำหรับ iPhone)
-        let audioUnlocked = false;
-        function unlockAudio() {
-            if (audioUnlocked) return;
-            const context = new (window.AudioContext || window.webkitAudioContext)();
-            context.resume();
-            audioUnlocked = true;
+        // ปลดล็อก AudioContext ทันทีที่คลิก
+        let audioCtx;
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
         }
-        document.addEventListener('touchstart', unlockAudio, {once: true});
-        document.addEventListener('click', unlockAudio, {once: true});
 
         function playAudio(text) {
-            unlockAudio();
+            initAudio();
             const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
-            new Audio(url).play().catch(() => alert("กดที่หน้าจอ 1 ครั้งเพื่อเริ่มเสียงครับ"));
+            new Audio(url).play().catch(() => {}); // เล่นแบบเงียบๆ ไม่ต้องแสดง Alert
         }
 
         const params = new URLSearchParams(window.location.search);
@@ -87,11 +87,11 @@
             document.getElementById('meta').innerHTML = `${q.pinyin}<br><span class="fw-bold">${q.thaiRead} : ${q.thaiMeaning}</span>`;
             
             const ctrl = document.getElementById('controls');
-            ctrl.innerHTML = `<button class="btn-audio" onclick="playAudio('${q.chinese}')">🔊 ฟังเสียง</button>`;
+            ctrl.innerHTML = `<button class="btn-custom btn-audio" onclick="playAudio('${q.chinese}')">🔊 ฟังเสียง</button>`;
 
             if (mode === 'study') {
                 const btn = document.createElement('button');
-                btn.className = 'btn-action';
+                btn.className = 'btn-custom btn-next';
                 btn.innerText = (currentIdx === data.length - 1) ? "เข้าสู่บททดสอบ!" : "ประโยคถัดไป";
                 btn.onclick = () => { if(currentIdx === data.length - 1) { mode = 'quiz'; currentIdx = 0; } else { currentIdx++; } render(); };
                 ctrl.appendChild(btn);
@@ -101,9 +101,12 @@
                 opts.sort(() => Math.random() - 0.5);
                 opts.forEach(opt => {
                     const b = document.createElement('button');
-                    b.className = 'btn-opt';
+                    b.className = 'btn-custom btn-opt';
                     b.innerText = opt;
-                    b.onclick = () => { if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else alert('จบแล้ว! ได้คะแนน ' + score); }, 600); };
+                    b.onclick = () => { 
+                        if(opt === q.thaiMeaning) { score++; b.classList.add('correct'); } else { b.classList.add('wrong'); } 
+                        setTimeout(() => { currentIdx++; if(currentIdx < data.length) render(); else alert('จบแล้ว! ได้คะแนน ' + score); }, 600); 
+                    };
                     ctrl.appendChild(b);
                 });
             }
