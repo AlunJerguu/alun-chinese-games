@@ -1,0 +1,62 @@
+[
+  {
+    "chinese": "你好",
+    "pinyin": "nǐ hǎo",
+    "thaiRead": "หนี ห่าว",
+    "thaiMeaning": "สวัสดี"
+  },
+  {
+    "chinese": "谢谢",
+    "pinyin": "xiè xiè",
+    "thaiRead": "เซี่ย เซี่ย",
+    "thaiMeaning": "ขอบคุณ"
+  },
+  {
+    "chinese": "再见",
+    "pinyin": "zài jiàn",
+    "thaiRead": "ไจ้ เจี้ยน",
+    "thaiMeaning": "ลาก่อน"
+  },
+  {
+    "chinese": "对不起",
+    "pinyin": "duì bù qǐ",
+    "thaiRead": "ตุ้ย ปู้ ฉี่",
+    "thaiMeaning": "ขอโทษ"
+  },
+  {
+    "chinese": "我",
+    "pinyin": "wǒ",
+    "thaiRead": "หวั่ว",
+    "thaiMeaning": "ฉัน"
+  },
+  {
+    "chinese": "你",
+    "pinyin": "nǐ",
+    "thaiRead": "หนี่",
+    "thaiMeaning": "คุณ"
+  },
+  {
+    "chinese": "吃饭",
+    "pinyin": "chī fàn",
+    "thaiRead": "ชือ ฟ่าน",
+    "thaiMeaning": "กินข้าว"
+  },
+  {
+    "chinese": "水",
+    "pinyin": "shuǐ",
+    "thaiRead": "สุ่ย",
+    "thaiMeaning": "น้ำ"
+  },
+  {
+    "chinese": "好",
+    "pinyin": "hǎo",
+    "thaiRead": "ห่าว",
+    "thaiMeaning": "ดี"
+  },
+  {
+    "chinese": "爸爸",
+    "pinyin": "bà ba",
+    "thaiRead": "ป้า ปะ",
+    "thaiMeaning": "พ่อ"
+  }
+]

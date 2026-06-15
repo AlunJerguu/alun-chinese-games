@@ -1,0 +1,62 @@
+[
+  {
+    "chinese": "苹果",
+    "pinyin": "píng guǒ",
+    "thaiRead": "ผิง กั่ว",
+    "thaiMeaning": "แอปเปิ้ล"
+  },
+  {
+    "chinese": "猫",
+    "pinyin": "māo",
+    "thaiRead": "เมา",
+    "thaiMeaning": "แมว"
+  },
+  {
+    "chinese": "狗",
+    "pinyin": "gǒu",
+    "thaiRead": "โก่ว",
+    "thaiMeaning": "สุนัข"
+  },
+  {
+    "chinese": "书包",
+    "pinyin": "shū bāo",
+    "thaiRead": "ซู เปา",
+    "thaiMeaning": "กระเป๋านักเรียน"
+  },
+  {
+    "chinese": "笔",
+    "pinyin": "bǐ",
+    "thaiRead": "ปี่",
+    "thaiMeaning": "ปากกา"
+  },
+  {
+    "chinese": "电脑",
+    "pinyin": "diàn nǎo",
+    "thaiRead": "เตี้ยน เหน่า",
+    "thaiMeaning": "คอมพิวเตอร์"
+  },
+  {
+    "chinese": "手机",
+    "pinyin": "shǒu jī",
+    "thaiRead": "โฉ่ว จี",
+    "thaiMeaning": "โทรศัพท์มือถือ"
+  },
+  {
+    "chinese": "桌子",
+    "pinyin": "zhuō zi",
+    "thaiRead": "จัว จึ",
+    "thaiMeaning": "โต๊ะ"
+  },
+  {
+    "chinese": "椅子",
+    "pinyin": "yǐ zi",
+    "thaiRead": "อี่ จึ",
+    "thaiMeaning": "เก้าอี้"
+  },
+  {
+    "chinese": "工作",
+    "pinyin": "gōng zuò",
+    "thaiRead": "กง จั้ว",
+    "thaiMeaning": "ทำงาน"
+  }
+]

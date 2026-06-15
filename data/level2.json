@@ -1,0 +1,62 @@
+[
+  {
+    "chinese": "妈妈",
+    "pinyin": "mā ma",
+    "thaiRead": "มา มะ",
+    "thaiMeaning": "แม่"
+  },
+  {
+    "chinese": "老师",
+    "pinyin": "lǎo shī",
+    "thaiRead": "เหล่า ซือ",
+    "thaiMeaning": "ครู"
+  },
+  {
+    "chinese": "朋友",
+    "pinyin": "péng yǒu",
+    "thaiRead": "เผิง โหย่ว",
+    "thaiMeaning": "เพื่อน"
+  },
+  {
+    "chinese": "书",
+    "pinyin": "shū",
+    "thaiRead": "ซู",
+    "thaiMeaning": "หนังสือ"
+  },
+  {
+    "chinese": "学校",
+    "pinyin": "xué xiào",
+    "thaiRead": "เสวีย เสี้ยว",
+    "thaiMeaning": "โรงเรียน"
+  },
+  {
+    "chinese": "喜欢",
+    "pinyin": "xǐ huān",
+    "thaiRead": "สี่ ฮวน",
+    "thaiMeaning": "ชอบ"
+  },
+  {
+    "chinese": "学习",
+    "pinyin": "xué xí",
+    "thaiRead": "เสวีย สี",
+    "thaiMeaning": "เรียน"
+  },
+  {
+    "chinese": "今天",
+    "pinyin": "jīn tiān",
+    "thaiRead": "จิน เทียน",
+    "thaiMeaning": "วันนี้"
+  },
+  {
+    "chinese": "明天",
+    "pinyin": "míng tiān",
+    "thaiRead": "หมิง เทียน",
+    "thaiMeaning": "พรุ่งนี้"
+  },
+  {
+    "chinese": "睡觉",
+    "pinyin": "shuì jiào",
+    "thaiRead": "ซุ่ย เจี้ยว",
+    "thaiMeaning": "นอน"
+  }
+]
