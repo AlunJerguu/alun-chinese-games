@@ -9,52 +9,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg-color: #f7f1e3; --border-color: #2f3542; }
-        body { background: var(--bg-color); font-family: 'Kanit', sans-serif; }
+        body { background: var(--bg-color); font-family: 'Kanit', sans-serif; overflow-x: hidden; }
         
-        /* Navbar Style */
         .navbar { border-bottom: 4px solid var(--border-color); background: #fdfaf0 !important; padding: 15px 0; }
-        .nav-link { font-weight: 700; color: #4b5563 !important; margin: 0 15px; }
-        .nav-link:hover { color: #6c5ce7 !important; }
-        .brand-text { font-weight: 900; color: var(--border-color); }
-        .offcanvas { border-right: 4px solid var(--border-color); background: #fdfaf0; }
+        .brand-text { font-weight: 900; color: var(--border-color); font-size: 1.3rem; }
+        .offcanvas { border-right: 4px solid var(--border-color); background: #fdfaf0; width: 80% !important; }
 
-        /* Page Content */
-        .header-section { text-align: center; padding: 40px 20px; }
-        .header-section h1 { font-weight: 900; color: var(--border-color); text-transform: uppercase; }
+        .header-section { text-align: center; padding: 40px 20px 20px; }
+        .header-section h1 { font-weight: 900; color: var(--border-color); font-size: 2rem; }
 
-        .level-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 500px; margin: 0 auto; padding: 0 20px 50px 20px; }
-        .level-card { background: #fff; border: 4px solid var(--border-color); border-radius: 25px; padding: 25px 10px; text-align: center; text-decoration: none; color: var(--border-color); box-shadow: 6px 6px 0px var(--border-color); transition: all 0.2s; }
-        .level-card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px var(--border-color); background: #ffeaa7; }
-        .level-number { font-size: 2.5rem; font-weight: 900; display: block; }
+        /* ปรับ Grid ให้รองรับมือถือ */
+        .level-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 15px; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+
+        .level-card { 
+            background: #fff; border: 4px solid var(--border-color); border-radius: 20px; 
+            padding: 20px 10px; text-align: center; text-decoration: none; 
+            color: var(--border-color); box-shadow: 4px 4px 0px var(--border-color); 
+            transition: all 0.2s;
+        }
+        .level-card:active { transform: translateY(2px); box-shadow: 2px 2px 0px var(--border-color); }
+        .level-number { font-size: 2rem; font-weight: 900; display: block; }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg px-4">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <i class="bi bi-translate fs-2 me-2 text-primary"></i>
                 <span class="brand-text">AlunchineseGames</span>
             </a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="d-none d-lg-block">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
-                    <li class="nav-item"><a class="nav-link" href="game.html">เริ่มเล่นเกม</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
 
-    <!-- Sidebar Mobile -->
-    <div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasNavbar">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold">เมนู</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-        </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+        <div class="offcanvas-header"><h5 class="fw-bold">เมนู</h5><button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button></div>
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
@@ -63,10 +62,9 @@
         </div>
     </div>
 
-    <!-- Page Content -->
     <div class="header-section">
         <h1>เลือกบทเรียน</h1>
-        <p>สะสมความรู้ให้ครบทุกด่าน!</p>
+        <p class="text-muted">สะสมความรู้ให้ครบทุกด่าน!</p>
     </div>
 
     <div class="level-grid" id="levelGrid"></div>
@@ -76,11 +74,8 @@
         async function initLevels() {
             const grid = document.getElementById('levelGrid');
             try {
-                // ดึงข้อมูลจำนวนด่านทั้งหมดจากไฟล์ config
                 const response = await fetch('data/levels_config.json');
                 const config = await response.json();
-                
-                // สร้างปุ่มตามจำนวนใน config
                 for (let i = 1; i <= config.total; i++) {
                     const card = document.createElement('a');
                     card.href = `quiz.html?level=${i}`;
@@ -88,12 +83,8 @@
                     card.innerHTML = `<span class="level-number">${i}</span><span class="fw-bold">Level ${i}</span>`;
                     grid.appendChild(card);
                 }
-            } catch (error) {
-                console.error("ไม่สามารถโหลดจำนวนด่านได้:", error);
-                grid.innerHTML = "<p class='text-center'>กำลังโหลดบทเรียน...</p>";
-            }
+            } catch (error) { grid.innerHTML = "<p class='text-center'>กำลังโหลดบทเรียน...</p>"; }
         }
-
         initLevels();
     </script>
 </body>
