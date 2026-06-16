@@ -1,0 +1,12 @@
+[
+  {"chinese": "吃饭", "pinyin": "Chīfàn", "thaiRead": "ชือฟ่าน", "thaiMeaning": "กินข้าว"},
+  {"chinese": "水", "pinyin": "Shuǐ", "thaiRead": "สุ่ย", "thaiMeaning": "น้ำเปล่า"},
+  {"chinese": "茶", "pinyin": "Chá", "thaiRead": "ฉา", "thaiMeaning": "ชา"},
+  {"chinese": "咖啡", "pinyin": "Kāfēi", "thaiRead": "คาเฟย", "thaiMeaning": "กาแฟ"},
+  {"chinese": "水果", "pinyin": "Shuǐguǒ", "thaiRead": "สุ่ยกั่ว", "thaiMeaning": "ผลไม้"},
+  {"chinese": "面条", "pinyin": "Miàntiáo", "thaiRead": "เมี่ยนเถียว", "thaiMeaning": "ก๋วยเตี๋ยว/เส้นหมี่"},
+  {"chinese": "好吃", "pinyin": "Hǎochī", "thaiRead": "ห่าวชือ", "thaiMeaning": "อร่อย"},
+  {"chinese": "饿", "pinyin": "È", "thaiRead": "เอ้อร์", "thaiMeaning": "หิว"},
+  {"chinese": "饱", "pinyin": "Bǎo", "thaiRead": "เป่า", "thaiMeaning": "อิ่ม"},
+  {"chinese": "菜", "pinyin": "Cài", "thaiRead": "ไช่", "thaiMeaning": "อาหาร/ผัก"}
+]
