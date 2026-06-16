@@ -1,0 +1,12 @@
+[
+  {"chinese": "挖掘机", "pinyin": "Wājuéjī", "thaiRead": "วาเจวี๋ยจี", "thaiMeaning": "รถแม็คโคร/รถขุด"},
+  {"chinese": "起重机", "pinyin": "Qǐzhòngjī", "thaiRead": "ฉี่จ้งจี", "thaiMeaning": "รถเครน"},
+  {"chinese": "推土机", "pinyin": "Tuītǔjī", "thaiRead": "ทุยถู่จี", "thaiMeaning": "รถเกรดดิน/รถดันดิน"},
+  {"chinese": "搅拌机", "pinyin": "Jiǎobànjī", "thaiRead": "เจี่ยวปั้นจี", "thaiMeaning": "เครื่องผสมปูน"},
+  {"chinese": "发电机", "pinyin": "Fādiànjī", "thaiRead": "ฟาเตี้ยนจี", "thaiMeaning": "เครื่องปั่นไฟ"},
+  {"chinese": "卡车", "pinyin": "Kǎchē", "thaiRead": "ข่าเชอ", "thaiMeaning": "รถบรรทุก"},
+  {"chinese": "焊机", "pinyin": "Hànjī", "thaiRead": "ฮั่นจี", "thaiMeaning": "เครื่องเชื่อม"},
+  {"chinese": "泵", "pinyin": "Bèng", "thaiRead": "เปิ่ง", "thaiMeaning": "เครื่องสูบน้ำ/ปั๊ม"},
+  {"chinese": "叉车", "pinyin": "Chāchē", "thaiRead": "ชาเชอ", "thaiMeaning": "รถยก (Forklift)"},
+  {"chinese": "工具箱", "pinyin": "Gōngjùxiāng", "thaiRead": "กงจวี้เซียง", "thaiMeaning": "กล่องเครื่องมือ"}
+]
