@@ -61,6 +61,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ระบบเสียง: โหลดและเก็บไว้ในหน่วยความจำ
+        const sounds = {
+            click: new Audio('sounds/click.wav'),
+            correct: new Audio('sounds/correct.wav'),
+            wrong: new Audio('sounds/wrong.wav')
+        };
+
+        // ฟังก์ชันเล่นเสียง: ใช้ cloneNode เพื่อความเร็วระดับสูงสุดบนมือถือ
+        function playSound(type) {
+            if (sounds[type]) {
+                const s = sounds[type].cloneNode();
+                s.volume = 1;
+                s.play().catch(() => {});
+            }
+        }
+
+        // ระบบเสียงพูด
         function playAudio(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
@@ -69,15 +86,10 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        const soundFiles = {
-            click: 'sounds/click.wav',
-            correct: 'sounds/correct.wav',
-            wrong: 'sounds/wrong.wav'
-        };
-
-        function playSound(type) {
-            new Audio(soundFiles[type]).play().catch(e => console.log("รอการคลิก"));
-        }
+        // ปลดล็อกเสียงอัตโนมัติ (จำเป็นบน iOS/Android)
+        document.body.addEventListener('click', () => {
+            Object.values(sounds).forEach(s => s.load());
+        }, { once: true });
 
         const params = new URLSearchParams(window.location.search);
         const level = params.get('level') || '1';
@@ -101,11 +113,10 @@
             const ctrl = document.getElementById('controls');
             ctrl.innerHTML = '';
 
-            // ปุ่ม "ฟังเสียง" (ไม่มี playSound('click'))
             const audioBtn = document.createElement('button');
             audioBtn.className = 'btn-audio';
             audioBtn.innerText = '🔊 ฟังเสียง';
-            audioBtn.onclick = () => playAudio(q.chinese); 
+            audioBtn.onclick = () => playAudio(q.chinese); // ฟังเสียงไม่มีเสียงคลิกตามที่คุณสั่ง
             ctrl.appendChild(audioBtn);
 
             if (mode === 'study') {
