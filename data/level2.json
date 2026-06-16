@@ -1,62 +1,12 @@
 [
-  {
-    "chinese": "妈妈",
-    "pinyin": "mā ma",
-    "thaiRead": "มา มะ",
-    "thaiMeaning": "แม่"
-  },
-  {
-    "chinese": "老师",
-    "pinyin": "lǎo shī",
-    "thaiRead": "เหล่า ซือ",
-    "thaiMeaning": "ครู"
-  },
-  {
-    "chinese": "朋友",
-    "pinyin": "péng yǒu",
-    "thaiRead": "เผิง โหย่ว",
-    "thaiMeaning": "เพื่อน"
-  },
-  {
-    "chinese": "书",
-    "pinyin": "shū",
-    "thaiRead": "ซู",
-    "thaiMeaning": "หนังสือ"
-  },
-  {
-    "chinese": "学校",
-    "pinyin": "xué xiào",
-    "thaiRead": "เสวีย เสี้ยว",
-    "thaiMeaning": "โรงเรียน"
-  },
-  {
-    "chinese": "喜欢",
-    "pinyin": "xǐ huān",
-    "thaiRead": "สี่ ฮวน",
-    "thaiMeaning": "ชอบ"
-  },
-  {
-    "chinese": "学习",
-    "pinyin": "xué xí",
-    "thaiRead": "เสวีย สี",
-    "thaiMeaning": "เรียน"
-  },
-  {
-    "chinese": "今天",
-    "pinyin": "jīn tiān",
-    "thaiRead": "จิน เทียน",
-    "thaiMeaning": "วันนี้"
-  },
-  {
-    "chinese": "明天",
-    "pinyin": "míng tiān",
-    "thaiRead": "หมิง เทียน",
-    "thaiMeaning": "พรุ่งนี้"
-  },
-  {
-    "chinese": "睡觉",
-    "pinyin": "shuì jiào",
-    "thaiRead": "ซุ่ย เจี้ยว",
-    "thaiMeaning": "นอน"
-  }
+  {"chinese": "检查车辆", "pinyin": "Jiǎnchá chēliàng", "thaiRead": "เจี่ยนฉา เชอเลี่ยง", "thaiMeaning": "ตรวจสอบสภาพรถ"},
+  {"chinese": "检查刹车", "pinyin": "Jiǎnchá shāchē", "thaiRead": "เจี่ยนฉา ซาเชอ", "thaiMeaning": "ตรวจสอบเบรก"},
+  {"chinese": "这里有纸卷", "pinyin": "Zhèlǐ yǒu zhǐjuǎn", "thaiRead": "เจ้อหลี่ โหย่ว จื่อเจวี่ยน", "thaiMeaning": "ตรงนี้มีม้วนกระดาษ"},
+  {"chinese": "夹紧一点", "pinyin": "Jiā jǐn yīdiǎn", "thaiRead": "เจีย จิ่น อีเตี่ยน", "thaiMeaning": "หนีบให้แน่นอีกนิด"},
+  {"chinese": "小心不要损坏", "pinyin": "Xiǎoxīn bùyào sǔnhuài", "thaiRead": "เสี่ยวซิน ปู๋เย้า สุ่นฮว้าย", "thaiMeaning": "ระวังอย่าให้เสียหาย"},
+  {"chinese": "放在这里", "pinyin": "Fàng zài zhèlǐ", "thaiRead": "ฟั่ง จ้าย เจ้อหลี่", "thaiMeaning": "วางไว้ตรงนี้"},
+  {"chinese": "开稳一点", "pinyin": "Kāi wěn yīdiǎn", "thaiRead": "คาย เหวิ่น อีเตี่ยน", "thaiMeaning": "ขับให้นิ่งๆ/มั่นคง"},
+  {"chinese": "注意后面", "pinyin": "Zhùyì hòumiàn", "thaiRead": "จู้ยี่ โฮ่วเมี่ยน", "thaiMeaning": "ระวังข้างหลังด้วย"},
+  {"chinese": "倒车请注意", "pinyin": "Dàochē qǐng zhùyì", "thaiRead": "เต้าเชอ ฉิ่ง จู้ยี่", "thaiMeaning": "กำลังถอยหลัง โปรดระวัง"},
+  {"chinese": "码放整齐", "pinyin": "Mǎfàng zhěngqí", "thaiRead": "หม่าฟั่ง เจิ่งฉี", "thaiMeaning": "วางเรียงให้เป็นระเบียบ"}
 ]
