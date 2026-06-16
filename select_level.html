@@ -7,53 +7,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --border-color: #2f3542; }
+        :root { --bg-color: #f7f1e3; --border-color: #2f3542; }
+        body { background: var(--bg-color); font-family: 'Kanit', sans-serif; padding: 20px; }
         
-        /* เพิ่มพื้นหลังการ์ตูน */
-        body { 
-    /* 1. เปลี่ยนเป็น background-image ที่มีความละเอียดสูง (แนะนำหาไฟล์ .png หรือ .jpg ที่ชัดๆ) */
-    /* 2. เปลี่ยน background-attachment จาก fixed เป็น scroll เพื่อให้พื้นหลังอยู่กับที่ในหน้าเว็บ */
-    background: url('https://pixabay.com/th/images/download/x-203875_1920.jpg') no-repeat center center scroll; 
-    background-size: cover;
-    font-family: 'Kanit', sans-serif; 
-    padding: 20px; 
-    min-height: 100vh;
-}
-        
-        .header-box { 
-            text-align: center; margin-bottom: 30px; 
-            background: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 20px;
-        }
+        .header-box { text-align: center; margin-bottom: 30px; }
         .header-box h2 { font-weight: 900; color: var(--border-color); font-size: 1.8rem; }
         
-        /* โครงสร้าง Path Layout แบบเดิม */
+        /* สไตล์ใหม่: ใช้ Flexbox เปลี่ยน level-grid ให้กลายเป็น Path ซิกแซก */
         .level-grid { 
             display: flex; flex-direction: column; align-items: center; 
             max-width: 400px; margin: 0 auto; gap: 20px;
         }
-        
         .level-card { 
             width: 80px; height: 80px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             text-decoration: none; font-weight: 900; font-size: 1.5rem;
-            background: #fff; border: 5px solid var(--border-color);
+            background: #fff; border: 3px solid var(--border-color);
             box-shadow: 4px 4px 0px var(--border-color); 
             transition: all 0.2s; color: var(--border-color);
         }
-        .level-card:hover { transform: scale(1.1); background: #fdfaf0; }
+        .level-card:hover { transform: translateY(-3px); background: #fdfaf0; }
         
+        /* สลับซ้าย-ขวา */
         .level-card:nth-child(odd) { align-self: flex-start; margin-left: 10%; }
         .level-card:nth-child(even) { align-self: flex-end; margin-right: 10%; }
         
-        .level-card.locked { background: #dcdde1; border-color: #7f8c8d; box-shadow: 4px 4px 0px #7f8c8d; color: #7f8c8d; cursor: not-allowed; }
+        .level-card.locked { background: #dcdde1; cursor: not-allowed; box-shadow: 4px 4px 0px #7f8c8d; border-color: #7f8c8d; color: #7f8c8d; }
         .level-card.locked:hover { transform: none; background: #dcdde1; }
         
-        .footer-nav { 
-            text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.7); padding: 15px; border-radius: 20px;
-        }
-        .btn-back { color: var(--border-color); font-weight: 700; text-decoration: none; border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 50px; background: white; }
-        .btn-reset { background: #ff7675; color: white; border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 50px; font-weight: 700; cursor: pointer; }
+        .footer-nav { text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 10px; }
+        .btn-back { color: var(--border-color); font-weight: 700; text-decoration: none; border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 50px; transition: 0.2s; }
+        .btn-back:hover { background: var(--border-color); color: #fff; }
+        .btn-reset { background: #ff7675; color: white; border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-reset:hover { background: #d63031; }
     </style>
 </head>
 <body>
@@ -74,7 +60,9 @@
         const type = params.get('type') || 'general';
         document.getElementById('page-title').innerText = (type === 'general') ? "📖 ประโยคทั่วไป" : "🏗️ ประโยคหน้างาน";
 
-        const totalLevels = (type === 'general') ? 20 : 20; 
+        // คืนค่า Logic เดิม: ใช้ Dynamic ตามหมวดหมู่
+        const totalLevels = (type === 'general') ? 20 : 20;
+
         const grid = document.getElementById('levelGrid');
 
         function renderLevels() {
@@ -83,13 +71,13 @@
                 const card = document.createElement('a');
                 const isUnlocked = (i === 1) || localStorage.getItem(`${type}_levelPassed_${i - 1}`);
                 
-                card.className = isUnlocked ? 'level-card' : 'level-card locked';
-                card.innerHTML = `<span>${i}</span>`;
-                
                 if (isUnlocked) {
                     card.href = `quiz.html?type=${type}&level=${i}`;
+                    card.className = 'level-card';
+                    card.innerHTML = `<span style="font-size:1.5rem">${i}</span>`;
                 } else {
-                    card.innerHTML = `<span>🔒</span>`;
+                    card.className = 'level-card locked';
+                    card.innerHTML = `<span style="font-size:1.5rem">🔒</span>`;
                 }
                 grid.appendChild(card);
             }
