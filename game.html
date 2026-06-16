@@ -19,7 +19,6 @@
         .header-section { text-align: center; padding: 40px 20px 20px; }
         .header-section h1 { font-weight: 900; color: var(--border-color); font-size: 2rem; }
 
-        /* ปรับ Grid ให้รองรับมือถือ */
         .level-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
@@ -33,10 +32,15 @@
             background: #fff; border: 4px solid var(--border-color); border-radius: 20px; 
             padding: 20px 10px; text-align: center; text-decoration: none; 
             color: var(--border-color); box-shadow: 4px 4px 0px var(--border-color); 
-            transition: all 0.2s;
+            transition: all 0.2s; cursor: pointer;
         }
         .level-card:active { transform: translateY(2px); box-shadow: 2px 2px 0px var(--border-color); }
         .level-number { font-size: 2rem; font-weight: 900; display: block; }
+
+        /* สไตล์สำหรับด่านที่ถูกล็อก */
+        .level-card.locked {
+            background: #dcdde1; border-color: #7f8c8d; color: #7f8c8d; cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -77,11 +81,19 @@
             try {
                 const response = await fetch('data/levels_config.json');
                 const config = await response.json();
+                
                 for (let i = 1; i <= config.total; i++) {
-                    const card = document.createElement('a');
-                    card.href = `quiz.html?level=${i}`;
-                    card.className = 'level-card';
-                    card.innerHTML = `<span class="level-number">${i}</span><span class="fw-bold">Level ${i}</span>`;
+                    // ด่าน 1 ปลดล็อกเสมอ ด่านถัดไปเช็ค localStorage
+                    const isUnlocked = (i === 1) || (localStorage.getItem('levelPassed_' + (i - 1)) === 'true');
+                    
+                    const card = document.createElement(isUnlocked ? 'a' : 'div');
+                    if (isUnlocked) card.href = `quiz.html?level=${i}`;
+                    card.className = 'level-card ' + (isUnlocked ? '' : 'locked');
+                    
+                    card.innerHTML = `
+                        <span class="level-number">${isUnlocked ? i : '<i class="bi bi-lock-fill"></i>'}</span>
+                        <span class="fw-bold">${isUnlocked ? 'Level ' + i : 'Locked'}</span>
+                    `;
                     grid.appendChild(card);
                 }
             } catch (error) { grid.innerHTML = "<p class='text-center'>กำลังโหลดบทเรียน...</p>"; }
