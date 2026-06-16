@@ -81,14 +81,16 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // ระบบเสียงประกอบ (Sound Effects)
+        // ระบบเสียงประกอบ (Sound Effects) แบบ Preload
+        const sounds = {
+            click: new Audio('https://actions.google.com/sounds/v1/ui/button_toggle.ogg'),
+            correct: new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg'),
+            wrong: new Audio('https://actions.google.com/sounds/v1/ui/negative_tones.ogg')
+        };
+
         function playSound(type) {
-            const sounds = {
-                click: 'https://actions.google.com/sounds/v1/ui/button_toggle.ogg',
-                correct: 'https://actions.google.com/sounds/v1/ui/positive_tones.ogg',
-                wrong: 'https://actions.google.com/sounds/v1/ui/negative_tones.ogg'
-            };
-            new Audio(sounds[type]).play().catch(() => {});
+            sounds[type].currentTime = 0;
+            sounds[type].play().catch(() => {});
         }
 
         const params = new URLSearchParams(window.location.search);
