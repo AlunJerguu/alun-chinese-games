@@ -14,7 +14,6 @@
         .navbar { border-bottom: 4px solid var(--border-color); background: #fdfaf0 !important; padding: 15px 0; }
         .brand-text { font-weight: 900; color: var(--border-color); font-size: 1.3rem; }
         
-        /* ปรับ Quiz Container ให้พอดีมือถือ */
         .quiz-container { margin: 20px auto; display: flex; justify-content: center; padding: 0 15px; }
         .quiz-card { 
             width: 100%; max-width: 450px; background: #fff; border-radius: 30px; 
@@ -27,11 +26,10 @@
         .mode-study { background: var(--study-color); }
         .mode-quiz { background: var(--quiz-color); }
         
-        /* ปรับขนาดตัวอักษรให้ Responsive */
         .char-display { font-size: 4rem; font-weight: 900; color: var(--border-color); margin: 5px 0; }
         .meta-info { font-size: 1.1rem; color: #57606f; min-height: 3.5em; }
         
-        .btn-audio { background: #eee; border: 3px solid var(--border-color); width: 100%; padding: 12px; border-radius: 15px; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
+        .btn-audio { background: #ffeaa7; border: 3px solid var(--border-color); width: 100%; padding: 12px; border-radius: 15px; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
         .btn-action { width: 100%; padding: 12px; border-radius: 15px; border: 3px solid var(--border-color); background: var(--study-color); font-weight: 800; cursor: pointer; }
         .btn-opt { width: 100%; padding: 12px; margin: 6px 0; border-radius: 15px; border: 3px solid var(--border-color); background: #fff; font-weight: 600; cursor: pointer; }
         
@@ -39,7 +37,7 @@
         .wrong { background: #ff6b81 !important; }
     </style>
 </head>
-<body onclick="ensureAudio()">
+<body>
 
     <nav class="navbar navbar-expand-lg px-4">
         <div class="container">
@@ -73,21 +71,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ระบบเสียง (ใช้ Event Delegation เพื่อลดปัญหา Browser บล็อก)
-        let audioReady = false;
-        function ensureAudio() {
-            if (audioReady) return;
-            const silence = new Audio();
-            silence.play().catch(() => {});
-            audioReady = true;
-        }
-
-        let activeAudio = new Audio();
+        // แก้ไขระบบเสียงใหม่โดยใช้ SpeechSynthesis API เพื่อหลีกเลี่ยง CORB
         function playAudio(text) {
-            const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
-            activeAudio.src = url;
-            activeAudio.load();
-            activeAudio.play().catch(() => { console.log("เสียงถูกบล็อก: ลองแตะหน้าจอ 1 ครั้ง"); });
+            window.speechSynthesis.cancel(); // หยุดเสียงเก่าก่อนเริ่มใหม่
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            window.speechSynthesis.speak(utterance);
         }
 
         const params = new URLSearchParams(window.location.search);
@@ -141,7 +131,6 @@
         }
 
         function showResult() {
-            new Audio('https://actions.google.com/sounds/v1/ui/positive_tones.ogg').play();
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
             document.getElementById('score-text').innerText = `${score}/${data.length}`;
             new bootstrap.Modal(document.getElementById('scoreModal')).show();
