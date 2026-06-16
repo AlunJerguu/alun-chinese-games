@@ -8,22 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg-color: #f7f1e3; --border-color: #2f3542; }
-        body { background: var(--bg-color); font-family: 'Kanit', sans-serif; min-height: 100vh; padding: 20px; }
+        body { background: var(--bg-color); font-family: 'Kanit', sans-serif; padding: 20px; }
         
-        .header-box { text-align: center; margin-bottom: 40px; }
-        .header-box h2 { font-weight: 900; color: var(--border-color); font-size: 2.5rem; }
+        .header-box { text-align: center; margin-bottom: 30px; }
+        .header-box h2 { font-weight: 900; color: var(--border-color); font-size: 1.8rem; }
         
-        .level-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; max-width: 600px; margin: 0 auto; }
+        /* ปรับให้เล็กลงและเรียงสวย */
+        .level-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; max-width: 500px; margin: 0 auto; }
         .level-card { 
-            background: #fff; border: 4px solid var(--border-color); border-radius: 25px; 
-            padding: 30px 10px; text-align: center; text-decoration: none; 
-            color: var(--border-color); box-shadow: 6px 6px 0px var(--border-color); 
-            transition: all 0.2s; cursor: pointer; font-weight: 900; font-size: 1.2rem;
+            background: #fff; border: 3px solid var(--border-color); border-radius: 15px; 
+            padding: 15px; width: 100px; text-align: center; text-decoration: none; 
+            color: var(--border-color); box-shadow: 4px 4px 0px var(--border-color); 
+            transition: all 0.2s; font-weight: 900;
         }
-        .level-card:hover { transform: translateY(-5px); background: #fdfaf0; }
-        .level-card:active { transform: translateY(0); box-shadow: 2px 2px 0px var(--border-color); }
+        .level-card:hover { transform: translateY(-3px); background: #fdfaf0; }
         
-        .btn-back { display: block; margin: 30px auto; color: var(--border-color); font-weight: 700; text-decoration: underline; }
+        .footer-nav { text-align: center; margin-top: 40px; }
+        .btn-back { 
+            color: var(--border-color); font-weight: 700; text-decoration: none; 
+            border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 50px;
+            transition: 0.2s;
+        }
+        .btn-back:hover { background: var(--border-color); color: #fff; }
     </style>
 </head>
 <body>
@@ -34,7 +40,9 @@
 
     <div class="level-grid" id="levelGrid"></div>
     
-    <a href="game.html" class="btn-back">⬅ กลับไปหน้าเลือกหมวดหมู่</a>
+    <div class="footer-nav">
+        <a href="game.html" class="btn-back">⬅ กลับหน้าหลัก</a>
+    </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -46,7 +54,7 @@
             const card = document.createElement('a');
             card.href = `quiz.html?type=${type}&level=${i}`;
             card.className = 'level-card';
-            card.innerHTML = `<div>ด่านที่</div><div style="font-size:2rem">${i}</div>`;
+            card.innerHTML = `<small>ด่าน</small><br><span style="font-size:1.5rem">${i}</span>`;
             grid.appendChild(card);
         }
     </script>
