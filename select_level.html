@@ -59,14 +59,16 @@
         const type = params.get('type') || 'general';
         document.getElementById('page-title').innerText = (type === 'general') ? "📖 ประโยคทั่วไป" : "🏗️ ประโยคหน้างาน";
 
+        // กำหนดจำนวนด่านแยกตามประเภท
+        const totalLevels = (type === 'general') ? 10 : 3; 
+
         const grid = document.getElementById('levelGrid');
-        const totalLevels = 10; // กำหนดจำนวนด่าน
 
         function renderLevels() {
             grid.innerHTML = '';
             for (let i = 1; i <= totalLevels; i++) {
                 const card = document.createElement('a');
-                // ด่าน 1 ปลดล็อคเสมอ ด่านถัดไปเช็กจาก localStorage
+                // ด่าน 1 ปลดล็อคเสมอ ด่านถัดไปเช็กจาก localStorage ของหมวดนั้นๆ
                 const isUnlocked = (i === 1) || localStorage.getItem(`${type}_levelPassed_${i - 1}`);
                 
                 if (isUnlocked) {
@@ -86,7 +88,7 @@
                 for (let i = 1; i <= totalLevels; i++) {
                     localStorage.removeItem(`${type}_levelPassed_${i}`);
                 }
-                renderLevels(); // อัปเดตหน้าจอทันที
+                location.reload();
             }
         }
 
