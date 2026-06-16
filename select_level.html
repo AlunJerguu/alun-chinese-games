@@ -13,7 +13,6 @@
         .header-box { text-align: center; margin-bottom: 30px; }
         .header-box h2 { font-weight: 900; color: var(--border-color); font-size: 1.8rem; }
         
-        /* ปรับให้เล็กลงและเรียงสวย */
         .level-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; max-width: 500px; margin: 0 auto; }
         .level-card { 
             background: #fff; border: 3px solid var(--border-color); border-radius: 15px; 
@@ -22,6 +21,10 @@
             transition: all 0.2s; font-weight: 900;
         }
         .level-card:hover { transform: translateY(-3px); background: #fdfaf0; }
+        
+        /* สไตล์สำหรับด่านที่ล็อค */
+        .level-card.locked { background: #dcdde1; cursor: not-allowed; box-shadow: 4px 4px 0px #7f8c8d; border-color: #7f8c8d; color: #7f8c8d; }
+        .level-card.locked:hover { transform: none; background: #dcdde1; }
         
         .footer-nav { text-align: center; margin-top: 40px; }
         .btn-back { 
@@ -46,15 +49,27 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const type = params.get('type');
+        const type = params.get('type') || 'general';
         document.getElementById('page-title').innerText = (type === 'general') ? "📖 ประโยคทั่วไป" : "🏗️ ประโยคหน้างาน";
 
         const grid = document.getElementById('levelGrid');
-        for (let i = 1; i <= 3; i++) {
+        const totalLevels = 3; // กำหนดจำนวนด่านทั้งหมดที่นี่
+
+        for (let i = 1; i <= totalLevels; i++) {
             const card = document.createElement('a');
-            card.href = `quiz.html?type=${type}&level=${i}`;
-            card.className = 'level-card';
-            card.innerHTML = `<small>ด่าน</small><br><span style="font-size:1.5rem">${i}</span>`;
+            
+            // เช็กว่าด่านนี้ผ่านหรือยัง (ด่าน 1 ปลดล็อคเสมอ)
+            const isUnlocked = (i === 1) || localStorage.getItem(`${type}_levelPassed_${i - 1}`);
+            
+            if (isUnlocked) {
+                card.href = `quiz.html?type=${type}&level=${i}`;
+                card.className = 'level-card';
+                card.innerHTML = `<small>ด่าน</small><br><span style="font-size:1.5rem">${i}</span>`;
+            } else {
+                // ถ้าล็อค
+                card.className = 'level-card locked';
+                card.innerHTML = `<small>ด่าน</small><br><span style="font-size:1.5rem">🔒</span>`;
+            }
             grid.appendChild(card);
         }
     </script>
