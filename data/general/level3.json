@@ -1,0 +1,12 @@
+[
+  {"chinese": "爸爸", "pinyin": "Bàba", "thaiRead": "ป้าปะ", "thaiMeaning": "พ่อ"},
+  {"chinese": "妈妈", "pinyin": "Māma", "thaiRead": "มะหม่า", "thaiMeaning": "แม่"},
+  {"chinese": "哥哥", "pinyin": "Gēge", "thaiRead": "เกอเกอ", "thaiMeaning": "พี่ชาย"},
+  {"chinese": "弟弟", "pinyin": "Dìdi", "thaiRead": "ตี้ติ", "thaiMeaning": "น้องชาย"},
+  {"chinese": "姐姐", "pinyin": "Jiějie", "thaiRead": "เจี่ยเจีย", "thaiMeaning": "พี่สาว"},
+  {"chinese": "妹妹", "pinyin": "Mèimei", "thaiRead": "เม่ยเมย", "thaiMeaning": "น้องสาว"},
+  {"chinese": "朋友", "pinyin": "Péngyǒu", "thaiRead": "เผิงโหย่ว", "thaiMeaning": "เพื่อน"},
+  {"chinese": "老师", "pinyin": "Lǎoshī", "thaiRead": "เหล่าซือ", "thaiMeaning": "ครู"},
+  {"chinese": "学生", "pinyin": "Xuésheng", "thaiRead": "เสวียเซิง", "thaiMeaning": "นักเรียน"},
+  {"chinese": "家人", "pinyin": "Jiārén", "thaiRead": "เจียเหริน", "thaiMeaning": "คนในครอบครัว"}
+]
