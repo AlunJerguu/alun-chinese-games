@@ -56,7 +56,7 @@
             <div class="modal-content rounded-5 p-4 text-center border-4 border-dark">
                 <h2 id="result-title">ผลคะแนน! 🌟</h2>
                 <h1 id="score-text" class="display-3 fw-bold my-3">0/10</h1>
-                <button class="btn btn-warning btn-lg w-100 rounded-pill border-dark border-3" onclick="window.location.href='game.html'">กลับห้องเรียน</button>
+                <button class="btn btn-warning btn-lg w-100 rounded-pill border-dark border-3" onclick="window.location.href='game.html'">กลับหน้าหลัก</button>
             </div>
         </div>
     </div>
@@ -77,16 +77,22 @@
             window.speechSynthesis.speak(utterance);
         }
 
+        // ดึงค่า type และ level จาก URL
         const params = new URLSearchParams(window.location.search);
-        const level = parseInt(params.get('level') || '1');
+        const type = params.get('type') || 'general';
+        const level = params.get('level') || '1';
+        
         let data = [], currentIdx = 0, mode = 'study', score = 0;
 
         async function loadData() {
             try {
-                const response = await fetch(`data/level${level}.json?t=${Date.now()}`);
+                // แก้ไข Path ให้ดึงตาม type และ level ที่เลือก
+                const response = await fetch(`data/${type}/level${level}.json?t=${Date.now()}`);
                 data = await response.json();
                 render();
-            } catch (err) { document.getElementById('quiz-header').innerText = "โหลดด่านไม่สำเร็จ"; }
+            } catch (err) { 
+                document.getElementById('quiz-header').innerText = "โหลดด่านไม่สำเร็จ"; 
+            }
         }
 
         function render() {
@@ -130,13 +136,12 @@
         }
 
         function showResult() {
-            // เล่นเสียง wrongSnd ที่คุณต้องการให้เป็นเสียงเอกลักษณ์ของป็อปอัปทุกครั้ง
             playSound(wrongSnd);
-            
             if (score >= 10) {
                 confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
                 document.getElementById('result-title').innerText = "ผ่านด่านแล้ว! 🌟";
-                localStorage.setItem('levelPassed_' + level, 'true');
+                // ใช้ key ที่เจาะจงตาม type เพื่อไม่ให้ด่านปนกัน
+                localStorage.setItem(`${type}_levelPassed_${level}`, 'true');
             } else {
                 document.getElementById('result-title').innerText = "พยายามอีกนิดนะ! 📚";
             }
