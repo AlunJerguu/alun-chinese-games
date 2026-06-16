@@ -1,12 +1,1 @@
-[
-  {"chinese": "车坏了", "pinyin": "Chē huàile", "thaiRead": "เชอ ฮว้ายเลอ", "thaiMeaning": "รถเสียแล้ว"},
-  {"chinese": "刹车不好用", "pinyin": "Shāchē bù hǎoyòng", "thaiRead": "ซาเชอ ปู้ ห่าวโย่ง", "thaiMeaning": "เบรกใช้งานไม่ได้"},
-  {"chinese": "有问题吗?", "pinyin": "Yǒu wèntí ma?", "thaiRead": "โหย่ว เวิ่นถี่ มะ", "thaiMeaning": "มีปัญหาไหม?"},
-  {"chinese": "没问题", "pinyin": "Méi wèntí", "thaiRead": "เหมย เวิ่นถี่", "thaiMeaning": "ไม่มีปัญหา"},
-  {"chinese": "我马上修", "pinyin": "Wǒ mǎshàng xiū", "thaiRead": "หวั่ว หม่าซั่ง ซิว", "thaiMeaning": "ฉันจะรีบจัดการซ่อม"},
-  {"chinese": "需要帮忙吗?", "pinyin": "Xūyào bāngmáng ma?", "thaiRead": "ซวีเย้า ปางหมาง มะ", "thaiMeaning": "ต้องการให้ช่วยไหม?"},
-  {"chinese": "请等一下", "pinyin": "Qǐng děng yīxià", "thaiRead": "ฉิ่ง เติ่ง อีเซี่ย", "thaiMeaning": "กรุณารอสักครู่"},
-  {"chinese": "清楚了吗?", "pinyin": "Qīngchǔ le ma?", "thaiRead": "ชิงฉู่ เลอ มะ", "thaiMeaning": "เข้าใจชัดเจนไหม?"},
-  {"chinese": "明白了", "pinyin": "Míngbáile", "thaiRead": "หมิงไป๋เลอ", "thaiMeaning": "เข้าใจแล้ว"},
-  {"chinese": "辛苦了", "pinyin": "Xīnkǔ le", "thaiRead": "ซินขู่ เลอ", "thaiMeaning": "เหนื่อยหน่อยนะ"}
-]
+[{"chinese": "老板", "pinyin": "Lǎobǎn", "thaiRead": "เหล่าป่าน", "thaiMeaning": "เถ้าแก่"}, {"chinese": "主管", "pinyin": "Zhǔguǎn", "thaiRead": "จู่ก่วน", "thaiMeaning": "หัวหน้างาน"}, {"chinese": "同事", "pinyin": "Tóngshì", "thaiRead": "ถงซื่อ", "thaiMeaning": "เพื่อนร่วมงาน"}, {"chinese": "工人", "pinyin": "Gōngrén", "thaiRead": "กงเหริน", "thaiMeaning": "คนงาน"}, {"chinese": "工程师", "pinyin": "Gōngchéngshī", "thaiRead": "กงเฉิงซือ", "thaiMeaning": "วิศวกร"}, {"chinese": "师傅", "pinyin": "Shīfu", "thaiRead": "ซือฟุ", "thaiMeaning": "ช่างฝีมือ/อาจารย์"}, {"chinese": "帮手", "pinyin": "Bāngshǒu", "thaiRead": "ปางโฉ่ว", "thaiMeaning": "ลูกมือ"}, {"chinese": "保安", "pinyin": "Bǎo'ān", "thaiRead": "เป่าอัน", "thaiMeaning": "รปภ."}, {"chinese": "司机", "pinyin": "Sījī", "thaiRead": "ซือจี", "thaiMeaning": "คนขับรถ"}, {"chinese": "秘书", "pinyin": "Mìshū", "thaiRead": "มี่ซู", "thaiMeaning": "เลขานุการ"}]

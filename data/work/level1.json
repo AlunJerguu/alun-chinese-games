@@ -1,12 +1,1 @@
-[
-  {"chinese": "安全第一", "pinyin": "Ānquán dì yī", "thaiRead": "อันเฉวียน ตี้ อี", "thaiMeaning": "ปลอดภัยไว้ก่อน"},
-  {"chinese": "注意安全", "pinyin": "Zhùyì ānquán", "thaiRead": "จู้ยี่ อันเฉวียน", "thaiMeaning": "ระวังความปลอดภัยด้วย"},
-  {"chinese": "戴好安全帽", "pinyin": "Dài hǎo ānquán mào", "thaiRead": "ไต้ห่าว อันเฉวียนเม่า", "thaiMeaning": "สวมหมวกนิรภัยให้เรียบร้อย"},
-  {"chinese": "请慢一点", "pinyin": "Qǐng màn yīdiǎn", "thaiRead": "ฉิ่ง ม่าน อีเตี่ยน", "thaiMeaning": "กรุณาช้าลงหน่อย"},
-  {"chinese": "小心车辆", "pinyin": "Xiǎoxīn chēliàng", "thaiRead": "เสี่ยวซิน เชอเลี่ยง", "thaiMeaning": "ระวังรถวิ่ง"},
-  {"chinese": "不要玩手机", "pinyin": "Bùyào wán shǒujī", "thaiRead": "ปู๋เย้า หวาน โส่วจี", "thaiMeaning": "อย่าเล่นมือถือ"},
-  {"chinese": "穿好工作服", "pinyin": "Chuān hǎo gōngzuò fú", "thaiRead": "ชวนห่าว กงจั้วฝู", "thaiMeaning": "ใส่ชุดทำงานให้เรียบร้อย"},
-  {"chinese": "请排队", "pinyin": "Qǐng páiduì", "thaiRead": "ฉิ่ง ไผตุ้ย", "thaiMeaning": "กรุณาเข้าแถว"},
-  {"chinese": "听从指挥", "pinyin": "Tīngcóng zhǐhuī", "thaiRead": "ทิงฉง จื่อฮุย", "thaiMeaning": "ฟังคำสั่งหัวหน้า"},
-  {"chinese": "大家加油", "pinyin": "Dàjiā jiāyóu", "thaiRead": "ต้าเจีย เจียโหยว", "thaiMeaning": "สู้ๆ นะทุกคน"}
-]
+[{"chinese": "安全帽", "pinyin": "Ānquán mào", "thaiRead": "อันเฉวียนเม้า", "thaiMeaning": "หมวกนิรภัย"}, {"chinese": "小心", "pinyin": "Xiǎoxīn", "thaiRead": "เสี่ยวซิน", "thaiMeaning": "ระวัง"}, {"chinese": "危险", "pinyin": "Wēixiǎn", "thaiRead": "เวยเสี่ยน", "thaiMeaning": "อันตราย"}, {"chinese": "禁止", "pinyin": "Jìnzhǐ", "thaiRead": "จิ้นจื่อ", "thaiMeaning": "ห้าม"}, {"chinese": "注意", "pinyin": "Zhùyì", "thaiRead": "จู้ยี้", "thaiMeaning": "โปรดสังเกต/สนใจ"}, {"chinese": "安全鞋", "pinyin": "Ānquán xié", "thaiRead": "อันเฉวียนเสีย", "thaiMeaning": "รองเท้าเซฟตี้"}, {"chinese": "背心", "pinyin": "Bèixīn", "thaiRead": "เป้ยซิน", "thaiMeaning": "เสื้อกั๊กสะท้อนแสง"}, {"chinese": "手套", "pinyin": "Shǒutào", "thaiRead": "โฉ่วเท้า", "thaiMeaning": "ถุงมือ"}, {"chinese": "救护车", "pinyin": "Jiùhùchē", "thaiRead": "จิ้วฮู่เชอ", "thaiMeaning": "รถพยาบาล"}, {"chinese": "第一", "pinyin": "Dì yī", "thaiRead": "ตี้อี", "thaiMeaning": "ที่หนึ่ง/อันดับแรก"}]
