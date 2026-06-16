@@ -130,14 +130,14 @@
         }
 
         function showResult() {
-            // เรียกเสียงในหน้าผลลัพธ์ตามเดิม
+            // เล่นเสียง wrongSnd ทุกกรณีในหน้าป็อปอัปตามที่คุณต้องการ
+            playSound(wrongSnd);
+            
             if (score >= 10) {
                 confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-                playSound(correctSnd);
                 document.getElementById('result-title').innerText = "ผ่านด่านแล้ว! 🌟";
                 localStorage.setItem('levelPassed_' + level, 'true');
             } else {
-                playSound(wrongSnd);
                 document.getElementById('result-title').innerText = "พยายามอีกนิดนะ! 📚";
             }
             document.getElementById('score-text').innerText = `${score}/${data.length}`;
