@@ -1,0 +1,12 @@
+[
+  {"chinese": "学校", "pinyin": "Xuéxiào", "thaiRead": "เสวียเสี้ยว", "thaiMeaning": "โรงเรียน"},
+  {"chinese": "医院", "pinyin": "Yīyuàn", "thaiRead": "อีเวี่ยน", "thaiMeaning": "โรงพยาบาล"},
+  {"chinese": "商店", "pinyin": "Shāngdiàn", "thaiRead": "ซางเตี้ยน", "thaiMeaning": "ร้านค้า"},
+  {"chinese": "家", "pinyin": "Jiā", "thaiRead": "เจีย", "thaiMeaning": "บ้าน"},
+  {"chinese": "饭店", "pinyin": "Fàndiàn", "thaiRead": "ฟ่านเตี้ยน", "thaiMeaning": "ร้านอาหาร"},
+  {"chinese": "厕所", "pinyin": "Cèsuǒ", "thaiRead": "เช่อสั่ว", "thaiMeaning": "ห้องน้ำ"},
+  {"chinese": "公司", "pinyin": "Gōngsī", "thaiRead": "กงซือ", "thaiMeaning": "บริษัท"},
+  {"chinese": "公园", "pinyin": "Gōngyuán", "thaiRead": "กงเหยียน", "thaiMeaning": "สวนสาธารณะ"},
+  {"chinese": "火车站", "pinyin": "Huǒchēzhàn", "thaiRead": "หั่วเชอจ้าน", "thaiMeaning": "สถานีรถไฟ"},
+  {"chinese": "机场", "pinyin": "Jīchǎng", "thaiRead": "จีฉ่าง", "thaiMeaning": "สนามบิน"}
+]

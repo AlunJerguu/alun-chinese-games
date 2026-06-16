@@ -1,0 +1,12 @@
+[
+  {"chinese": "红色", "pinyin": "Hóngsè", "thaiRead": "หงเซ่อ", "thaiMeaning": "สีแดง"},
+  {"chinese": "蓝色", "pinyin": "Lánsè", "thaiRead": "หลานเซ่อ", "thaiMeaning": "สีฟ้า"},
+  {"chinese": "黄色", "pinyin": "Huángsè", "thaiRead": "หวงเซ่อ", "thaiMeaning": "สีเหลือง"},
+  {"chinese": "白色", "pinyin": "Báisè", "thaiRead": "ไป๋เซ่อ", "thaiMeaning": "สีขาว"},
+  {"chinese": "黑色", "pinyin": "Hēisè", "thaiRead": "เฮยเซ่อ", "thaiMeaning": "สีดำ"},
+  {"chinese": "大", "pinyin": "Dà", "thaiRead": "ต้า", "thaiMeaning": "ใหญ่"},
+  {"chinese": "小", "pinyin": "Xiǎo", "thaiRead": "เสี่ยว", "thaiMeaning": "เล็ก"},
+  {"chinese": "多", "pinyin": "Duō", "thaiRead": "ตัว", "thaiMeaning": "เยอะ"},
+  {"chinese": "少", "pinyin": "Shǎo", "thaiRead": "ส่าว", "thaiMeaning": "น้อย"},
+  {"chinese": "长", "pinyin": "Cháng", "thaiRead": "ฉาง", "thaiMeaning": "ยาว"}
+]

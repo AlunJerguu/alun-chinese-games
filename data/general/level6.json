@@ -1,0 +1,12 @@
+[
+  {"chinese": "星期一", "pinyin": "Xīngqī yī", "thaiRead": "ซิงชีอี", "thaiMeaning": "วันจันทร์"},
+  {"chinese": "星期日", "pinyin": "Xīngqī rì", "thaiRead": "ซิงชีรื่อ", "thaiMeaning": "วันอาทิตย์"},
+  {"chinese": "点", "pinyin": "Diǎn", "thaiRead": "เตี่ยน", "thaiMeaning": "โมง/นาฬิกา"},
+  {"chinese": "分", "pinyin": "Fēn", "thaiRead": "เฟิน", "thaiMeaning": "นาที"},
+  {"chinese": "上午", "pinyin": "Shàngwǔ", "thaiRead": "ซ่างอู่", "thaiMeaning": "ช่วงเช้า"},
+  {"chinese": "下午", "pinyin": "Xiàwǔ", "thaiRead": "เซี่ยอู่", "thaiMeaning": "ช่วงบ่าย"},
+  {"chinese": "年", "pinyin": "Nián", "thaiRead": "เหนียน", "thaiMeaning": "ปี"},
+  {"chinese": "月", "pinyin": "Yuè", "thaiRead": "เยวี่ย", "thaiMeaning": "เดือน"},
+  {"chinese": "日", "pinyin": "Rì", "thaiRead": "รื่อ", "thaiMeaning": "วัน"},
+  {"chinese": "星期", "pinyin": "Xīngqī", "thaiRead": "ซิงชี", "thaiMeaning": "สัปดาห์"}
+]

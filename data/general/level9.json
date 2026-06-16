@@ -1,0 +1,12 @@
+[
+  {"chinese": "工作", "pinyin": "Gōngzuò", "thaiRead": "กงจั้ว", "thaiMeaning": "ทำงาน"},
+  {"chinese": "学习", "pinyin": "Xuéxí", "thaiRead": "เสวียสี", "thaiMeaning": "เรียนหนังสือ"},
+  {"chinese": "看书", "pinyin": "Kànshū", "thaiRead": "คั่นซู", "thaiMeaning": "อ่านหนังสือ"},
+  {"chinese": "睡觉", "pinyin": "Shuìjiào", "thaiRead": "ซุ่ยเจี้ยว", "thaiMeaning": "นอนหลับ"},
+  {"chinese": "看电视", "pinyin": "Kàn diànshì", "thaiRead": "คั่นเตี้ยนซื่อ", "thaiMeaning": "ดูทีวี"},
+  {"chinese": "去", "pinyin": "Qù", "thaiRead": "ชวี่", "thaiMeaning": "ไป"},
+  {"chinese": "来", "pinyin": "Lái", "thaiRead": "ไหล", "thaiMeaning": "มา"},
+  {"chinese": "玩", "pinyin": "Wán", "thaiRead": "หวัน", "thaiMeaning": "เล่น"},
+  {"chinese": "运动", "pinyin": "Yùndòng", "thaiRead": "อวิ้นต้ง", "thaiMeaning": "ออกกำลังกาย"},
+  {"chinese": "听音乐", "pinyin": "Tīng yīnyuè", "thaiRead": "ทิงอินเยวี่ย", "thaiMeaning": "ฟังเพลง"}
+]

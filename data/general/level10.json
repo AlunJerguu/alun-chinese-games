@@ -1,0 +1,12 @@
+[
+  {"chinese": "爱", "pinyin": "Ài", "thaiRead": "อ้าย", "thaiMeaning": "รัก"},
+  {"chinese": "喜欢", "pinyin": "Xǐhuān", "thaiRead": "สี่ฮวน", "thaiMeaning": "ชอบ"},
+  {"chinese": "想", "pinyin": "Xiǎng", "thaiRead": "เสี่ยง", "thaiMeaning": "คิดถึง/อยาก"},
+  {"chinese": "知道", "pinyin": "Zhīdào", "thaiRead": "จือเต้า", "thaiMeaning": "รู้"},
+  {"chinese": "听", "pinyin": "Tīng", "thaiRead": "ทิง", "thaiMeaning": "ฟัง"},
+  {"chinese": "说", "pinyin": "Shuō", "thaiRead": "ซัว", "thaiMeaning": "พูด"},
+  {"chinese": "读", "pinyin": "Dú", "thaiRead": "ตู๋", "thaiMeaning": "อ่าน"},
+  {"chinese": "写", "pinyin": "Xiě", "thaiRead": "เสี่ย", "thaiMeaning": "เขียน"},
+  {"chinese": "看见", "pinyin": "Kànjiàn", "thaiRead": "คั่นเจี้ยน", "thaiMeaning": "มองเห็น"},
+  {"chinese": "做", "pinyin": "Zuò", "thaiRead": "จั้ว", "thaiMeaning": "ทำ"}
+]

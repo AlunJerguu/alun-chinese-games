@@ -1,0 +1,12 @@
+[
+  {"chinese": "买", "pinyin": "Mǎi", "thaiRead": "หม่าย", "thaiMeaning": "ซื้อ"},
+  {"chinese": "卖", "pinyin": "Mài", "thaiRead": "ม่าย", "thaiMeaning": "ขาย"},
+  {"chinese": "多少钱", "pinyin": "Duōshǎo qián", "thaiRead": "ตัวส่าวเฉียน", "thaiMeaning": "ราคาเท่าไหร่"},
+  {"chinese": "贵", "pinyin": "Guì", "thaiRead": "กุ้ย", "thaiMeaning": "แพง"},
+  {"chinese": "便宜", "pinyin": "Piányi", "thaiRead": "เผียนอี๋", "thaiMeaning": "ถูก"},
+  {"chinese": "钱", "pinyin": "Qián", "thaiRead": "เฉียน", "thaiMeaning": "เงิน"},
+  {"chinese": "给", "pinyin": "Gěi", "thaiRead": "เก่ย", "thaiMeaning": "ให้"},
+  {"chinese": "找钱", "pinyin": "Zhǎo qián", "thaiRead": "จ่าวเฉียน", "thaiMeaning": "ทอนเงิน"},
+  {"chinese": "要", "pinyin": "Yào", "thaiRead": "ย้าว", "thaiMeaning": "เอา/ต้องการ"},
+  {"chinese": "店员", "pinyin": "Diànyuán", "thaiRead": "เตี้ยนเยวียน", "thaiMeaning": "พนักงานขาย"}
+]
