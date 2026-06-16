@@ -69,7 +69,6 @@
 
         function playSound(snd) { snd.currentTime = 0; snd.play().catch(() => {}); }
 
-        // ปรับปรุง: ใช้ SpeechSynthesis แบบบังคับให้เคลียร์ Queue ก่อนเล่นทุกครั้ง
         function playAudio(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
@@ -101,10 +100,7 @@
             const audioBtn = document.createElement('button');
             audioBtn.className = 'btn-audio';
             audioBtn.innerText = '🔊 ฟังเสียง';
-            // ผูกฟังก์ชันโดยตรงกับคลิก
-            audioBtn.onclick = () => {
-                playAudio(q.chinese);
-            };
+            audioBtn.onclick = () => playAudio(q.chinese); 
             ctrl.appendChild(audioBtn);
 
             if (mode === 'study') {
@@ -134,6 +130,7 @@
         }
 
         function showResult() {
+            // เรียกเสียงในหน้าผลลัพธ์ตามเดิม
             if (score >= 10) {
                 confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
                 playSound(correctSnd);
