@@ -69,13 +69,13 @@
 
         function playSound(snd) { snd.currentTime = 0; snd.play().catch(() => {}); }
 
-        // ปรับปรุง: ใช้ตัวแปร Global เพื่อให้ Audio ทำงานแยกอิสระในแต่ละด่าน
-        let activeAudio = null;
+        // ปรับปรุง: ใช้ SpeechSynthesis แบบบังคับให้เคลียร์ Queue ก่อนเล่นทุกครั้ง
         function playAudio(text) {
-            if (activeAudio) activeAudio.pause();
-            const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
-            activeAudio = new Audio(url);
-            activeAudio.play().catch(e => console.log("เสียงโหลดไม่สำเร็จ"));
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            window.speechSynthesis.speak(utterance);
         }
 
         const params = new URLSearchParams(window.location.search);
@@ -98,11 +98,13 @@
             const ctrl = document.getElementById('controls');
             ctrl.innerHTML = '';
 
-            // สร้างปุ่มใหม่ทุกครั้งที่ render() เพื่อให้แน่ใจว่า Event พร้อมใช้งาน
             const audioBtn = document.createElement('button');
             audioBtn.className = 'btn-audio';
             audioBtn.innerText = '🔊 ฟังเสียง';
-            audioBtn.onclick = () => playAudio(q.chinese); 
+            // ผูกฟังก์ชันโดยตรงกับคลิก
+            audioBtn.onclick = () => {
+                playAudio(q.chinese);
+            };
             ctrl.appendChild(audioBtn);
 
             if (mode === 'study') {
