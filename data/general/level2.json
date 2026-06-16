@@ -1,0 +1,12 @@
+[
+  {"chinese": "你好", "pinyin": "Nǐ hǎo", "thaiRead": "หนีห่าว", "thaiMeaning": "สวัสดี"},
+  {"chinese": "谢谢", "pinyin": "Xièxiè", "thaiRead": "เซี่ยเซี่ย", "thaiMeaning": "ขอบคุณ"},
+  {"chinese": "不客气", "pinyin": "Bù kèqì", "thaiRead": "ปู๋เค่อชี่", "thaiMeaning": "ไม่เป็นไร"},
+  {"chinese": "对不起", "pinyin": "Duìbùqǐ", "thaiRead": "ตุ้ยปู้ฉี่", "thaiMeaning": "ขอโทษ"},
+  {"chinese": "没关系", "pinyin": "Méiguānxì", "thaiRead": "เหมยกวนซี่", "thaiMeaning": "ไม่เป็นไร (ไม่ถือสา)"},
+  {"chinese": "再见", "pinyin": "Zàijiàn", "thaiRead": "ไจ้เจี้ยน", "thaiMeaning": "ลาก่อน"},
+  {"chinese": "早安", "pinyin": "Zǎo ān", "thaiRead": "เจ่าอัน", "thaiMeaning": "อรุณสวัสดิ์"},
+  {"chinese": "晚安", "pinyin": "Wǎn ān", "thaiRead": "หว่านอัน", "thaiMeaning": "ราตรีสวัสดิ์"},
+  {"chinese": "好", "pinyin": "Hǎo", "thaiRead": "ห่าว", "thaiMeaning": "ดี"},
+  {"chinese": "加油", "pinyin": "Jiāyóu", "thaiRead": "เจียโหยว", "thaiMeaning": "สู้ๆ"}
+]

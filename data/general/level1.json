@@ -1,0 +1,12 @@
+[
+  {"chinese": "一", "pinyin": "Yī", "thaiRead": "อี", "thaiMeaning": "หนึ่ง"},
+  {"chinese": "二", "pinyin": "Èr", "thaiRead": "เอ้อร์", "thaiMeaning": "สอง"},
+  {"chinese": "三", "pinyin": "Sān", "thaiRead": "ซาน", "thaiMeaning": "สาม"},
+  {"chinese": "四", "pinyin": "Sì", "thaiRead": "ซื่อ", "thaiMeaning": "สี่"},
+  {"chinese": "五", "pinyin": "Wǔ", "thaiRead": "อู่", "thaiMeaning": "ห้า"},
+  {"chinese": "六", "pinyin": "Liù", "thaiRead": "ลิ่ว", "thaiMeaning": "หก"},
+  {"chinese": "七", "pinyin": "Qī", "thaiRead": "ชี", "thaiMeaning": "เจ็ด"},
+  {"chinese": "八", "pinyin": "Bā", "thaiRead": "ปา", "thaiMeaning": "แปด"},
+  {"chinese": "九", "pinyin": "Jiǔ", "thaiRead": "จิ่ว", "thaiMeaning": "เก้า"},
+  {"chinese": "十", "pinyin": "Shí", "thaiRead": "สือ", "thaiMeaning": "สิบ"}
+]
