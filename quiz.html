@@ -73,10 +73,18 @@
     <script>
         // แก้ไขระบบเสียงใหม่โดยใช้ SpeechSynthesis API เพื่อหลีกเลี่ยง CORB
         function playAudio(text) {
-            window.speechSynthesis.cancel(); // หยุดเสียงเก่าก่อนเริ่มใหม่
+            // หยุดเสียงเก่า
+            window.speechSynthesis.cancel();
+            
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'zh-CN';
             utterance.rate = 0.8;
+            
+            // เพิ่มการตรวจจับสำหรับมือถือ
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+            
             window.speechSynthesis.speak(utterance);
         }
 
